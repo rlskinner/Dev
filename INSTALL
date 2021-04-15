@@ -1,0 +1,17 @@
+Installation Instructions
+
+To facilitate development on different machines, and to isoloate new
+development from software that depends on old (working) versions:
+
+	All development using personally developed code should get include files,
+	libraries and binaries from $DEVROOT:
+
+		* $DEVROOT/bin
+		* $DEVROOT/include
+		* $DEVROOT/lib
+
+	All personally developed code should install and include files, libraries
+	and binaries in $DEVROOT.  Each project should check in an "install.bat"
+	file to copy the files into $DEVROOT.
+
+RLS, 1/22/2009
