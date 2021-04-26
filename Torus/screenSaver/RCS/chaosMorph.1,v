@@ -1,0 +1,113 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	94.12.09.23.11.53;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@man page for chaosMorph
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@'\"macro stdmacro
+.if n .pH man1.chaosMorph @@(#)chaosMorph	
+.TH CHAOSMORPH 1
+.SH NAME
+chaosMorph \- chaotic attractor screen saver
+.SH SYNOPSIS
+.B chaosMorph
+[
+.B \-n numPoints
+]
+[
+.B \-p stepSize
+]
+[
+.B \-T tileSize
+]
+[
+.B \-t tableSize
+]
+.SH DESCRIPTION
+.I chaosMorph 
+is a screen saver program that diaplays chaotic attractors
+of a family of quasiperiodic functions.  The functions are composed of
+weighted sine functions, making the attractors periodic in X and Y.
+ChaosMorph exploits this periodicity by tiling the screen with copies
+of the attractor.
+.PP
+The shape of the attractor depends on the eccentricity an two other
+parameters.  The shape of the attractor is changed constantly by
+varying these parameters before drawing each frame.  In addition, each
+time the screen saver function engages, the function is change dby
+selecting new random weights for the sine functions.  In other words,
+ChaosMorph continuously varies the shape of the attractor, and it
+changes the attractor family each time it is engaged.
+.PP
+The following options are recognized:
+.PP
+.B \-n 
+.I numPoints
+.RS
+sets the number of points plotted to create the attractor (default
+10000).  Larger values make a better looking attractor, but take
+longer to compute, reducing the smoothness of the animation.
+.RE
+.PP
+.B \-p 
+.I stepSize
+.RS
+sets amount that the attractor shape parameters are changed after
+each frame is displayed (default .01).  A smaller number results
+in smoother, but slower, attractor changes.  This can be boring
+when the parameters move through areas where the attractor is
+relatively simple.
+.RE
+.PP
+.B \-T 
+.I tileSize
+.RS
+set the size of the attractor in pixels (default 256).  The screen
+is tiled with whole copies of the attractor, so the default value
+results in 5x4 copies of the attractor on a 1280x1024 display.  If
+the tile size does not exactly divide into the screen size, then
+dead space is left on the top and right.  For example, if the 
+tile size is 100, there are 80 blank pixels on the right and 24 at
+the top of the screen.
+.RE
+.PP
+.B \-t 
+.I tableSize
+.RS
+computation of the attractor requires several sine evaluations as a
+function of the X and Y position of each point plotted.  These
+evaluations are accelerated by computing a two-dimensional lookup 
+table.  This option sets the size of that table, as a multiple of
+the tile size, see above (default 2.0).  Greater values result in
+marginally better attractor images.  Smaller values begin to
+adversely affect the attractor image, with values less than 1.0 
+resulting in severe artifacts.  Note:  the memory required for
+this table is not insignificant (especially for a screen saver),
+since the program remains resident.  Memory is allocated for
+2*tileSize*tileSize floating point values, or 0.5 Mbytes.  Also,
+this table is recomputed each time the screen saver is activated,
+which results in a delay before an image is displayed.  The larger
+the table, the longer the delay and the more memory is used.
+.RE
+.SH SEE ALSO
+chaosDance(1)
+.SH BUGS
+FILL IN HERE!
+@

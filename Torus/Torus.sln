@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libTorus", "lib\lib.vcproj", "{151888B8-80BF-49AC-98C9-29F0FBA1E570}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glut", "glut\glut.vcproj", "{14A9CDC9-0ADB-4B8A-9FE8-4EA31829007A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{151888B8-80BF-49AC-98C9-29F0FBA1E570}.Debug.ActiveCfg = Debug|Win32
+		{151888B8-80BF-49AC-98C9-29F0FBA1E570}.Debug.Build.0 = Debug|Win32
+		{151888B8-80BF-49AC-98C9-29F0FBA1E570}.Release.ActiveCfg = Release|Win32
+		{151888B8-80BF-49AC-98C9-29F0FBA1E570}.Release.Build.0 = Release|Win32
+		{14A9CDC9-0ADB-4B8A-9FE8-4EA31829007A}.Debug.ActiveCfg = Debug|Win32
+		{14A9CDC9-0ADB-4B8A-9FE8-4EA31829007A}.Debug.Build.0 = Debug|Win32
+		{14A9CDC9-0ADB-4B8A-9FE8-4EA31829007A}.Release.ActiveCfg = Release|Win32
+		{14A9CDC9-0ADB-4B8A-9FE8-4EA31829007A}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

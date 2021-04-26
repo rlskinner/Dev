@@ -1,0 +1,35 @@
+ChaosMorph:
+*  command line tuning:
+    *  adjust size of lookup table:
+	command line takes a floating point scale of (def 2x) size of
+	    tiles
+	Attractor has size set explicitly, e.g. (128,128)
+
+    *  enable/disable linear interpolation of lookup table
+
+    *  random number seed
+
+    *  Only display cells hit multiple times
+	*  command line arg controls how many times cell must be hit to 
+	   be displayed.
+
+    *  Early termination:  computation of the attractor ends when any cell 
+       is hit X times 
+
+ChaosDance:
+*  command line tuning
+   *  shape:  circle, dots, connected grid
+   *  complexity:  # points in shape
+   *  draw # of old shapes
+   *  fade old shapes
+   *  connect old shapes with polys
+*  get better interval information from sum of sines
+*  let shape tell main program about its theta/psi range
+*  try negative omega ranges, and more eccentric epsilon ranges
+*  more shapes
+*  vary omega, epsilon, AND a1, a2, b1, b2 arrays (AND r & s?)
+
+BOTH:
+*  man page
+*  integrate into desktop screen saver panel
+

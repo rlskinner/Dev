@@ -1,0 +1,10 @@
+ep.ssTitle: ChaosDance
+ep.ssDso: glsavers.so
+ep.ssKey: chaosDance
+ep.ssCommand: /usr/sbin/haven -n /usr/dist/savers/chaosDance -s .03 -f .95 -n 20 > /dev/null 2>&1&
+ep.ssCheckRead: /usr/lib/X11/savers/modules/haven.so
+!!ep.ssCheckWrite:
+ep.ssCheckExe: /usr/sbin/haven,/usr/dist/savers/chaosDance
+
+*ep.label.labelString:   ChaosDance
+*ep.message.labelString: \nScreen locking\nis unavailable for\nGL screen savers.

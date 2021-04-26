@@ -1,0 +1,58 @@
+From tristram@conan  Wed May  1 10:15:34 1991
+Received: from conan.asd.sgi.com by texas.asd.sgi.com via SMTP (5.65+bind 1.5+ida/900721.SGI)
+	for robert id AA02427; Wed, 1 May 91 10:15:34 -0700
+Received: by conan.asd.sgi.com (5.65+bind 1.5+ida/900721.SGI)
+	for robert@texas.asd.sgi.com id AA02546; Wed, 1 May 91 10:15:31 -0700
+Date: Wed, 1 May 91 10:15:31 -0700
+From: tristram@conan
+Message-Id: <9105011715.AA02546@conan.asd.sgi.com>
+To: robert@conan
+Subject: torus attractors
+Status: RO
+
+/*
+>From turk@cs.unc.edu  Sun Apr 28 22:41:57 1991
+Received: from giraffe.asd.sgi.com by manray.asd.sgi.com (5.52/900721.SGI)
+	for paul id AA02693; Sun, 28 Apr 91 22:41:57 PDT
+Received: from sgi.sgi.com by giraffe.asd.sgi.com (5.52/900721.SGI)
+	for paul@manray.asd.sgi.com id AA28580; Sun, 28 Apr 91 22:41:55 PDT
+Received: from mcnc.mcnc.org by SGI.COM via SMTP (5.65+bind 1.5+ida/910110.SGI)
+	for paul@giraffe.asd.sgi.com id AA15559; Sun, 28 Apr 91 22:41:51 -0700
+Received: from mcenroe.cs.unc.edu by mcnc.mcnc.org (5.59/MCNC/3-21-91)
+	id AA08601; Mon, 29 Apr 91 01:46:08 -0400
+	for paul@sgi.com
+Received: from currituck by mcenroe.cs.unc.edu (5.65/UNC_02-28-90)
+	id AA24215; Mon, 29 Apr 91 01:46:05 -0400
+Received: by currituck.cs.unc.edu (5.65/UNC_02-28-90)
+	id AA09814; Mon, 29 Apr 91 01:46:01 -0400
+Date: Mon, 29 Apr 91 01:46:01 -0400
+From: Gregory Turk <turk@cs.unc.edu>
+Message-Id: <9104290546.AA09814@currituck.cs.unc.edu>
+To: paul@sgi.com
+Subject: patterns from attractors
+Status: R
+
+Paul,
+
+Talking with you about patterns and textures reminded me of an article
+I had set aside several years ago.  I put a copy of the paper in the
+mail for you since it seemed like something that you might like.  The
+article is about chaotic attractors on a torus.  I've seen my fair share
+of attractors, but I found the ones produced by this system to be
+bewildering in their variety.
+
+I modified a program you wrote called "smoke" to look at the system,
+and a copy of this is included below.  The program may not make a
+whole lot of sense without having read some of the article.  Page 359
+describes the particular equations used to make the images in the
+article.
+
+I feel there should be some way to harness these images, but there
+are at least two problems:  1) navigating the parameter space and
+2) making continuous-toned images.  If the subject interests you
+I'd like to talk with you about it.
+
+- Greg
+
+
+*/

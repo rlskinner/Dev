@@ -1,0 +1,177 @@
+head	1.1;
+access;
+symbols;
+locks
+	Robert:1.1; strict;
+comment	@// @;
+
+
+1.1
+date	2006.05.28.05.53.14;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Initial working version in Windows.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@//
+//	2D cell population counter
+//
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+
+#include <stdio.h>
+#include <math.h>
+
+#include <randomUtil.h>
+
+#include "cell2D.h"
+
+const	int	NUM_PTS = 16;
+
+cell2D::cell2D()
+    : _cells( NULL )
+    , _pts( NULL )
+{
+}
+
+void
+cell2D::init( int &argc, char *argv[] )
+{
+    glutApp::init( argc, argv );
+
+    _cells = new GLubyte[4*_width*_height];
+
+    _pts = new float[2*NUM_PTS];
+    for( int i=0; i<2*NUM_PTS; i++ ) {
+	_pts[i] = drand48();
+    }
+
+    _torus = new TorusEvaluator( 2 );
+}
+
+void
+cell2D::createWindows()
+{
+//     glutInitDisplayMode( GLUT_INDEX | GLUT_SINGLE );
+    glutInitDisplayMode( GLUT_RGBA | GLUT_SINGLE );
+    glutInitWindowSize( 2*_width, 2*_height );
+    _wid = glutCreateWindow( "OGL torus" );
+}
+
+void
+cell2D::display()
+{
+    glRasterPos2f( 0, 0 );
+    glDrawPixels( _width, _height, 
+    		GL_RGBA, GL_UNSIGNED_BYTE, _cells );
+
+    glRasterPos2i( _width, 0 );
+    glDrawPixels( _width, _height, 
+    		GL_RGBA, GL_UNSIGNED_BYTE, _cells );
+
+    glRasterPos2i( 0, _height );
+    glDrawPixels( _width, _height, 
+    		GL_RGBA, GL_UNSIGNED_BYTE, _cells );
+
+    glRasterPos2i( _width, _height );
+    glDrawPixels( _width, _height, 
+    		GL_RGBA, GL_UNSIGNED_BYTE, _cells );
+}
+
+void
+cell2D::displayInit()
+{
+// 	for( int i=0; i<256; i++ ) {
+// 	    glutSetColor( i, float(i)/255.0, float(i)/255.0, float(i)/255.0 );
+// 	}
+
+    memset( _cells, 0, 4*_width*_height*sizeof(GLubyte) );
+	for(int i=0; i<_width*_height; ++i)
+		{
+		_cells[4*i+3] = 0xff; // init alpha channel
+		}
+
+	glViewport( 0, 0, 2*_width-1, 2*_height-1 );
+
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	glOrtho( 0.0, 2*_width-1.0, 
+		 0.0, 2*_height-1.0, 
+		 -1.0, 1.0 );
+
+	glMatrixMode( GL_MODELVIEW );
+	glLoadIdentity();
+
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear( GL_COLOR_BUFFER_BIT );
+
+	display();
+}
+
+void
+cell2D::idle()
+{
+    _torus->eval( NUM_PTS, _pts, _pts );
+
+    glBegin( GL_POINTS );
+    for( int i=0; i<2*NUM_PTS; i += 2 ) {
+	int	x = _pts[i]*_width;
+	int	y = _pts[i+1]*_height;
+
+	GLubyte	*c = &_cells[4*(y*_width+x)];
+	if( *c < 255 ) {
+// 	    glIndexub( ++(*c) );
+		glColor3ub( *c, *c, *c );
+		c[0] = c[1] = c[2] = c[0]+1;
+	    glVertex2i( x,        y );
+	    glVertex2i( x+_width, y );
+	    glVertex2i( x,        y+_height );
+	    glVertex2i( x+_width, y+_height );
+	}
+    }
+    glEnd();
+}
+
+void
+cell2D::idleInit()
+{
+    idle();
+}
+
+void
+cell2D::keyboard( unsigned char key, int x, int y )
+{
+    switch( key ) {
+	default:
+	    defaultKeyboardCB( key, x, y );
+	    break;
+    }
+}
+
+void
+cell2D::mouse( int button, int state, int x, int y )
+{
+    if( state == GLUT_DOWN ) {
+	float	omega[2] = { float(x)/_width, float(y)/_height };
+	_torus->setOmega( omega );
+	displayInit();
+    }
+}
+
+
+
+@

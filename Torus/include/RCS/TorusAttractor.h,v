@@ -1,0 +1,129 @@
+head	1.4;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.4
+date	94.10.06.20.11.12;	author robert;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	94.07.18.22.51.53;	author robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	94.07.12.23.59.46;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	94.07.12.16.43.00;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Torus attractor wrapper class.
+@
+
+
+1.4
+log
+@add facilities for computing output ranges from input ranges.
+@
+text
+@#ifndef	_TORUSATTRACTOR_H__
+#define	_TORUSATTRACTOR_H__
+//
+//  define an ADT that implements the torus attractor mapping
+//
+
+#include	<interval.h>
+
+#define	NUM_COEFFS	4
+
+class	TorusAttractor {
+public:
+    TorusAttractor( int xCellRes, int yCellRes );
+    ~TorusAttractor();
+
+    void	mapPoint( double theta, double psi, 
+			  double *newTheta, double *newPsi );
+    
+    void	wrapMap() { wrapMapping = 1; }
+    void	noWrapMap() { wrapMapping = 0; }
+    
+    void	setOmega1( double newOmega1 );
+    void	setOmega2( double newOmega2 );
+    void	setEpsilon( double newEpsilon );
+    void	randomizeArrays();
+
+    void	resetParameters();	// resets omegas, epsilon and arrays
+    void	computeRanges( int N, const Interval &om1, 
+				const Interval &om2,
+				const Interval &eps, 
+				Interval &theta, Interval &psi );
+
+private:
+    double	omega1, omega2;		// attractor shape controls
+    double	epsilon;		// 'chaoticness' parameter
+
+    double	a1[NUM_COEFFS];		// arrays used in mapping
+    double	a2[NUM_COEFFS];
+    double	b1[NUM_COEFFS];
+    double	b2[NUM_COEFFS];
+    double	r[NUM_COEFFS];
+    double	s[NUM_COEFFS];
+
+    float	*p1Array, *p2Array;
+    int		xCellRes, yCellRes;
+    void	allocateP1P2Arrays();
+    void	computeP1P2Arrays();
+
+    int		wrapMapping;		// wrap points?
+
+    void	computeRange( const Interval &omega, const Interval &eps, 
+				const Interval &param, Interval &theta );
+    double	frand( double min, double max );
+};
+
+#endif	/* _TORUSATTRACTOR_H__ */
+@
+
+
+1.3
+log
+@precompute sine tables to speed attractor computation
+@
+text
+@d7 2
+d19 3
+d28 4
+d49 4
+@
+
+
+1.2
+log
+@#ifndef include file.
+@
+text
+@d11 1
+a11 1
+    TorusAttractor();
+d34 5
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 2
+d38 1
+@

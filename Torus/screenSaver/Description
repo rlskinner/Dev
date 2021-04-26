@@ -1,0 +1,9 @@
+A collection of screen savers built around various chaotic attractor.
+Yes, these will soak up all of your extra cycles while active.
+
+    chaosMorph - display a continuously changing cyclic attractor,
+	tiled onto the screen.
+
+    chaosDance - continuously change the deformation applied to 
+	various shapes.
+

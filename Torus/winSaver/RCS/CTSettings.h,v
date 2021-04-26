@@ -1,0 +1,154 @@
+head	1.3;
+access;
+symbols;
+locks
+	Robert:1.3; strict;
+comment	@ * @;
+
+
+1.3
+date	2006.06.29.23.22.29;	author Robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2006.06.29.00.22.37;	author Robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2006.06.21.21.04.37;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chaos Torus Settings & UI
+@
+
+
+1.3
+log
+@Registry settings in HKEY_LOCAL_MACHINE\SOFTWARE\Chaotic Torus
+@
+text
+@#ifndef _CTSettings_h_
+#define _CTSettings_h_
+
+#include <qdialog.h>
+#include <qsettings.h>
+#include "FormSettingsDialog.h"
+
+// 
+// Settings object:
+// 		- holds the application settings
+// 		- fetches values from the registry 
+// 		- saves values to the registry
+// 		- initializes default settings values
+//
+class CTSettings
+	{
+	// Data Members
+	private:
+		int     maxCellHits_;		// # of attractor hits in one cell to stop
+		int     maxIterations_;		// stop after # of attractor iterations
+		float	paramStepSize_;		// step size in param space
+		int		tileSize_;			// size of tile in pixels
+		float	lookupTableSize_;	// size of lookup table (* tile size)
+		QSettings registry_;		// registry setting object
+
+		// Registry paths -- nothing fancy for now
+		static QString	applicationPath_;
+		static QString	attractorPath_;
+		static QString	maxCellHitsKey_;
+		static QString	maxIterationsKey_;
+		static QString	paramStepSizeKey_;
+		static QString	tileSizeKey_;
+		static QString	lookupTableSizeKey_;
+
+	// Constructors
+	public:
+		CTSettings();
+
+	// Get Operations
+	public:
+		int maxCellHits() { return maxCellHits_; }
+		int maxIterations() { return maxIterations_; }
+		float paramStepSize() { return paramStepSize_; }
+		int tileSize() { return tileSize_; }
+		float lookupTableSize() { return lookupTableSize_; }
+
+	// Set Operations
+	public:
+		void setMaxCellHits(int v) { maxCellHits_ = v; }
+		void setMaxIterations(int v) { maxIterations_ = v; }
+		void setParamStepSize(float v) { paramStepSize_ = v; }
+		void setTileSize(int v) { tileSize_ = v; }
+		void setLookupTableSize(float v) { lookupTableSize_ = v; }
+
+	// Registry Management
+	public:
+		void readSettings();
+		void saveSettings();
+
+	// Value Management
+	public:
+		void defaultValues();
+
+	// Value Access
+
+	};
+
+
+// 
+// QDialog for saving the settings in the registry
+//
+class CTSettingsDialog : public FormSettingsDialog
+	{
+	Q_OBJECT;
+
+	public:
+		const static int cNumParamStepDecimals = 5;
+		const static int cNumLookupTableDecimals = 2;
+
+	private:
+		CTSettings settings_; // values for the user to change
+
+	public:
+		CTSettingsDialog(bool modal);
+
+	public slots:
+		virtual void slotMaxNumCellHits(int value);
+		virtual void slotMaxIterPerFrame(const QString &);
+		void slotParamStepSize(const QString &);
+		void slotTileSize(const QString &);
+		void slotLookupTableSize(const QString &);
+
+		virtual void accept();
+		virtual void reject();
+
+	};
+
+#endif // _CTSettings_h_
+@
+
+
+1.2
+log
+@Gets/Sets values in registry (or somewhere, I can't see where, exactly)
+@
+text
+@d5 1
+d24 1
+@
+
+
+1.1
+log
+@Settings dialog has fields and validators
+@
+text
+@d24 9
+d37 16
+d75 7
+@

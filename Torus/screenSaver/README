@@ -1,0 +1,5 @@
+GLXwin demo.  
+The Makefile is configured for Tk 3.3;  if you are using Tk3.2, edit the
+Makefile.  
+
+To run the demo, try: glxwish -f glxtst.tk

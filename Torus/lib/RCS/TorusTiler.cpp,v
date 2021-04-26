@@ -1,0 +1,465 @@
+head	1.6;
+access;
+symbols;
+locks
+	robert:1.6; strict;
+comment	@// @;
+
+
+1.6
+date	94.09.05.06.13.27;	author robert;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	94.07.17.07.09.41;	author robert;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	94.07.12.23.59.05;	author robert;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	94.07.12.18.45.07;	author robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	94.07.12.16.41.24;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	94.07.11.18.39.50;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Class that manages tiling image of torus attractor into
+a window.
+@
+
+
+1.6
+log
+@Tile image by using rectcopy()
+@
+text
+@//
+//  An ADT that knows how to tile the Torus attractor into a
+//      a graphics window.
+//
+
+#include	"TorusTiler.h"
+#include	"TorusAttractor.h"
+
+#include	<Timer.h>
+
+#include	<gl/gl.h>
+#include	<string.h>
+
+const	char	CellNotDrawn = 0;
+const	char	CellDrawn = 1;
+
+TorusTiler::TorusTiler( int _tileWidth, int _tileHeight, 
+	    int _numColumns, int _numRows )
+{
+    tileWidth = _tileWidth;
+    tileHeight = _tileHeight;
+    numColumns = _numColumns;
+    numRows = _numRows;
+
+    numTiles = numColumns*numRows;
+
+    cellStates = new char[tileWidth*tileHeight];
+    memset( cellStates, CellNotDrawn, tileWidth*tileHeight );
+
+    lastTheta = 0.0;
+    lastPsi = 0.0;
+
+    doublebuffer();
+    gconfig();
+    reshapeviewport();
+}
+
+
+TorusTiler::~TorusTiler()
+{
+    delete cellStates;
+}
+
+
+float
+TorusTiler::drawTiledImage( int numIterations, TorusAttractor *attractor )
+{
+    Timer	startFrameTime;
+    startFrameTime.mark();
+
+    double	theta = lastTheta;
+    double	psi = lastPsi;
+    beginFrame();
+    for( int iteration = 0; iteration<numIterations; iteration++ ) {
+	double	newTheta, newPsi;		// save for debugging
+	attractor->mapPoint( theta, psi, &newTheta, &newPsi );
+
+	int	xCell = int(newTheta*tileWidth);
+	int	yCell = int(newPsi*tileHeight);
+
+	drawPoint( xCell, yCell );
+
+	theta = newTheta;
+	psi = newPsi;
+    }
+    endFrame();
+
+    lastTheta = theta;
+    lastPsi = psi;
+
+    Timer	endFrameTime;
+    endFrameTime.mark();
+    float frameTime = endFrameTime.diff( startFrameTime );
+
+    swapbuffers();
+    return frameTime;
+}
+
+
+void
+TorusTiler::beginFrameStates()
+{
+    memset( cellStates, CellNotDrawn, tileWidth*tileHeight );
+}
+
+//
+// do setup operations before drawing
+//
+void	
+TorusTiler::beginFrame()
+{
+    cpack( backgroundColor );
+    clear();
+    cpack( drawingColor );
+    bgnpoint();				// start drawing points
+    beginFrameStates();
+}
+
+
+//
+// draw (tiled) point
+//	if it hasn't already been drawn
+//
+void	
+TorusTiler::drawPoint( int x, int y )
+{
+    int	stateIndex = getCellIndex( x, y );
+    if( cellStates[stateIndex] == CellNotDrawn ) {
+	cellStates[stateIndex] = CellDrawn;	// flag this cell drawn, 
+
+	short	v[2];				// and draw it
+
+	v[0] = x;
+	v[1] = y;
+	v2s( v );
+
+    } else {
+	// Cell already drawn, do nothing
+    }
+}
+
+
+void	
+TorusTiler::endFrameStates()
+{
+}
+
+
+//
+// do operations after drawing points.
+//
+void	
+TorusTiler::endFrame()
+{
+    endpoint();				// end drawing points
+    for( int i=0; i<numColumns; i++ ) {
+	for( int j=0; j<numRows; j++ ) {
+	    if( !(i == 0 && j == 0) ) {
+		rectcopy( 0, 0, tileWidth-1, tileHeight-1,
+			i*tileWidth, j*tileHeight );
+	    }
+	}
+    }
+
+    endFrameStates();
+}
+
+
+
+@
+
+
+1.5
+log
+@never erase, keep track of cells set, and unset or set only
+those needed.
+@
+text
+@a12 1
+#include	<stdio.h>
+d15 1
+a15 2
+const	char	CellOldColor = 1;
+const	char	CellNewColor = 2;
+a25 1
+    tileOffsets = new cellPosition[numTiles];
+a26 9
+    int	tile = 0;
+    for( int column=0; column<numColumns; column++ ) {
+	for( int row=0; row<numRows; row++ ) {
+	    tileOffsets[tile].x = column*tileWidth;
+	    tileOffsets[tile].y = row*tileHeight;
+	    tile++;
+	}
+    }
+
+a29 3
+    lastPositions = NULL;
+    numPositions = 0;
+
+d33 2
+a34 2
+    // doublebuffer();
+    // gconfig();
+a40 1
+    delete tileOffsets;
+a41 30
+
+    delete lastPositions;
+}
+
+void
+TorusTiler::resizePositionArray( int n )
+{
+    if( n > numPositions ) {
+	if( numPositions > 0 ) {
+	    //  'realloc'
+	    cellPosition	*newPos = new cellPosition[n];
+	    int	i;
+	    for( i=0; i<numPositions; i++ ) {
+		newPos[i] = lastPositions[i];	// copy old values
+	    }
+	    for( i=numPositions; i<n; i++ ) {
+		newPos[i] = lastPositions[numPositions-1];	// extend last
+	    }
+	    delete lastPositions;
+	    lastPositions = newPos;
+	} else {
+	    // new allocation, set to 0,0
+	    numPositions = n;
+	    lastPositions = new cellPosition[numPositions];
+	    for( int i=0; i<numPositions; i++ ) {
+		lastPositions[i].x = 0;
+		lastPositions[i].y = 0;
+	    }
+	}
+    }
+a50 2
+    resizePositionArray( numIterations );
+
+d55 5
+a59 1
+	attractor->mapPoint( theta, psi, &theta, &psi );
+d61 1
+a61 2
+	int	xCell = int(theta*tileWidth);
+	int	yCell = int(psi*tileHeight);
+d63 2
+a64 3
+	setCell( iteration, xCell, yCell );
+	lastPositions[iteration].x = xCell;
+	lastPositions[iteration].y = yCell;
+d73 1
+a73 1
+    return endFrameTime.diff( startFrameTime );
+d75 2
+a76 1
+    // swapbuffers();
+d83 1
+a83 10
+    int	numCells = tileWidth*tileHeight;
+    for( int i=0; i<numCells; i++ ) {
+	if( cellStates[i] == CellNewColor ) {
+	    cellStates[i] = CellOldColor;
+	} else if( cellStates[i] == CellOldColor ) {
+	    printf( "error, cell is old color\n" );
+	} else {
+	    // its OK to not be drawn
+	}
+    }
+d92 4
+a99 16
+void
+TorusTiler::drawTiledPoint( int x, int y, u_long color )
+{
+    cpack( color );
+
+    short	v[2];				// and draw it
+
+    bgnpoint();
+    for( int i=0; i<numTiles; i++ ) {
+	v[0] = x + tileOffsets[i].x;
+	v[1] = y + tileOffsets[i].y;
+	v2s( v );
+    }
+    endpoint();
+}
+
+d105 1
+a105 1
+TorusTiler::setCell( int numCell, int x, int y )
+d107 9
+a115 13
+    //
+    //  clean up old position, if it is still old
+    //
+    int	oldIndex = getCellIndex( lastPositions[numCell].x, 
+				 lastPositions[numCell].y );
+    if( cellStates[oldIndex] == CellOldColor ) {
+	drawTiledPoint( lastPositions[numCell].x, lastPositions[numCell].y,
+			backgroundColor );
+	cellStates[oldIndex] = CellNotDrawn;
+    } else {
+	// if its not drawn, don't touch it
+	// if it is new, then don't wipe it out!
+    }
+a116 7
+    //
+    //  set new position, if it isn't already set
+    //
+    int	newIndex = getCellIndex( x, y );
+    if( cellStates[newIndex] != CellNewColor ) {
+	drawTiledPoint( x, y, drawingColor );
+	cellStates[newIndex] = CellNewColor;
+d118 1
+a118 1
+	// if is already set, then don't bother
+d135 10
+@
+
+
+1.4
+log
+@move image drawing loop into TorusTiler, so it can control
+starting position.
+@
+text
+@d13 1
+d16 2
+a17 1
+const	char	CellDrawn = 1;
+d28 1
+a28 2
+    tileColumnOffsets = new int[numTiles];
+    tileRowOffsets = new int[numTiles];
+d33 2
+a34 2
+	    tileColumnOffsets[tile] = column*tileWidth;
+	    tileRowOffsets[tile] = row*tileHeight;
+d40 4
+d56 1
+a56 2
+    delete tileColumnOffsets;
+    delete tileRowOffsets;
+d58 30
+d97 2
+d108 3
+a110 1
+	drawPoint( xCell, yCell );
+d128 10
+a137 1
+    memset( cellStates, CellNotDrawn, tileWidth*tileHeight );
+a145 3
+    cpack( backgroundColor );
+    clear();
+    cpack( drawingColor );
+d150 16
+d171 1
+a171 1
+TorusTiler::drawPoint( int x, int y )
+d173 13
+a185 13
+    int	stateIndex = getStateIndex( x, y );
+    if( cellStates[stateIndex] == CellNotDrawn ) {
+	cellStates[stateIndex] = CellDrawn;	// flag this cell drawn, 
+
+	short	v[2];				// and draw it
+
+	bgnpoint();
+	for( int i=0; i<numTiles; i++ ) {
+	    v[0] = x + tileColumnOffsets[i];
+	    v[1] = y + tileRowOffsets[i];
+	    v2s( v );
+	}
+	endpoint();
+d187 7
+d195 1
+a195 1
+	// Cell already drawn, do nothing
+@
+
+
+1.3
+log
+@Use a flag for each cell in the image to determine whether I
+really need to draw.  Don't draw cells already drawn.
+@
+text
+@d7 1
+d9 2
+d40 3
+d54 30
+@
+
+
+1.2
+log
+@reverted to single buffering for base configuration,
+to ensure that frame sync wasn't interferring with
+the timing figures.
+@
+text
+@d9 1
+d11 2
+d35 2
+d43 14
+d66 1
+d72 1
+d77 13
+a89 1
+    short	v[2];
+d91 2
+a92 5
+    bgnpoint();
+    for( int i=0; i<numTiles; i++ ) {
+	v[0] = x + tileColumnOffsets[i];
+	v[1] = y + tileRowOffsets[i];
+	v2s( v );
+d94 6
+a99 1
+    endpoint();
+d109 1
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d32 2
+a33 2
+    doublebuffer();
+    gconfig();
+@

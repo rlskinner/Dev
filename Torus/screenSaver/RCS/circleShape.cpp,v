@@ -1,0 +1,106 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@// @;
+
+
+1.2
+date	94.12.08.21.01.41;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	94.12.08.20.39.18;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@a circle shape for the shape dancing screen saver
+@
+
+
+1.2
+log
+@shapes now inform calling program of their parameter extent
+@
+text
+@//
+//  generic shape for the ShapeMorph class
+//
+
+#include	"circleShape.h"
+
+#include	<math.h>
+#include	<gl/gl.h>
+
+CircleShape::CircleShape()
+{
+    complexity = 100;
+}
+
+
+CircleShape::~CircleShape()
+{
+}
+
+
+void
+CircleShape::drawShape( ShapePoint *shape, u_long color )
+{
+    cpack( color );
+    bgnclosedline();
+    for( int i=0; i<numTemplatePts; i++ ) {
+	v2f( shape[i].xy );
+    }
+    endclosedline();
+}
+
+
+void
+CircleShape::init( Interval &theta, Interval &psi )
+{
+    Shape::init();
+    theta.setMin( -0.5 );
+    theta.setMax( 0.5 );
+    psi.setMin( -0.5 );
+    psi.setMax( 0.5 );
+}
+
+
+void   
+CircleShape::initTemplateShape()
+{
+    for( int i=0; i<numTemplatePts; i++ ) {
+	float	theta = 2*M_PI*i/float(numTemplatePts);
+	tmplate[i].setX( 0.0 + 0.5*cosf( theta ) );
+	tmplate[i].setY( 0.0 + 0.5*sinf( theta ) );
+    }
+}
+
+
+void   
+CircleShape::setShapeParameters()
+{
+    numTemplatePts = numIterations*complexity;
+}
+
+
+
+
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d32 12
+d49 2
+a50 2
+	tmplate[i].setX( 0.5 + 0.5*cosf( theta ) );
+	tmplate[i].setY( 0.5 + 0.5*sinf( theta ) );
+@

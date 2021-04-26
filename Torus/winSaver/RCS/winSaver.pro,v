@@ -1,0 +1,79 @@
+head	1.2;
+access;
+symbols;
+locks
+	Robert:1.2; strict;
+comment	@# @;
+
+
+1.2
+date	2006.10.25.01.43.12;	author Robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2006.06.21.21.04.37;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Chaos Torus screen saver for windows.
+@
+
+
+1.2
+log
+@Add libTorus, libUtil and Boost.
+@
+text
+@TEMPLATE	= vcapp
+LANGUAGE	= C++
+
+END = 
+
+CONFIG	+= qt debug exceptions rtti stl opengl console thread
+
+SOURCES	+= main.cpp CTDisplay.cpp CTSettings.cpp
+
+HEADERS	+= CTDisplay.h CTSettings.h
+
+FORMS	= FormSettingsDialog.ui
+
+INCLUDEPATH += ../../boost_1_33_1 ../../libUtil ../libTorus
+
+LIBS += \
+	../libTorus/libTorus.lib \
+	../../libUtil/libUtil.lib \
+	$$END
+
+TARGET = ChaosTorus
+
+CONFIG -= dlopen_opengl
+
+# LIBS += \
+# 	glut32.lib \
+# 	../libTorus/libTorus.lib \
+# 	../../libUtil/libUtil.lib \
+# 	$$END
+
+@
+
+
+1.1
+log
+@Settings dialog has fields and validators
+@
+text
+@d4 2
+d14 1
+a14 1
+TARGET = ChaosTorus
+d16 4
+d21 1
+a24 4
+# INCLUDEPATH += ../../boost_1_33_1 ../../libUtil ../libTorus
+
+# END = 
+
+@

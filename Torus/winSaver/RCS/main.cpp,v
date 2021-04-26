@@ -1,0 +1,222 @@
+head	1.4;
+access;
+symbols;
+locks
+	Robert:1.4; strict;
+comment	@// @;
+
+
+1.4
+date	2006.10.25.01.44.42;	author Robert;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2006.07.12.19.36.51;	author Robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2006.06.21.21.04.37;	author Robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2006.06.09.05.21.44;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@main() skeleton, shortly after it worked....
+@
+
+
+1.4
+log
+@Window assignment debugging.
+@
+text
+@#include <iostream>
+#include <string>
+#include <qapplication.h>
+
+#include "CTSettings.h"
+#include "CTDisplay.h"
+
+using namespace std;
+
+enum ExecutionMode 
+	{
+	cShowSettings, // show the Settings Dialog box
+	cShowSettingsModal, // show the Settings Dialog box, modal to foreground window
+	cPreview, // preview screen saver
+	cRunSaver, // run the screen saver
+	cRunDebugWindow, // run screen saver in a less-than-full-screen window
+	};
+
+ExecutionMode parseArgs(int argc, char **argv, WId &previewWindow)
+	{
+	--argc;
+	++argv;
+
+	for(; *argv; ++argv)
+		{
+		string arg(*argv);
+		if(arg == "/c")
+			return cShowSettingsModal;
+
+		if(arg == "/s")
+			return cRunSaver;
+
+		if(arg == "/p")
+			{
+			++argv;
+			cout << "/p " << *argv << endl;
+			long wid = strtol(*argv, 0, 10);
+			cout << "decimal wid = " << wid << endl;
+			previewWindow = WId(wid);
+			return cPreview;
+			}
+
+		if(arg == "/d")
+			return cRunDebugWindow;
+		}
+
+	return cShowSettings;
+	}
+
+
+//
+//  Show the Settings dialog
+//
+int showSettings(bool modal)
+	{
+	CTSettingsDialog *dialog = new CTSettingsDialog(modal);
+	return dialog->exec();
+	}
+
+
+//
+//  Run the saver as a child of the given window, if any
+//
+int runSaver(QApplication &app, bool fullScreen, WId window = 0)
+	{
+    if(!QGLFormat::hasOpenGL()) 
+		{
+		qWarning( "This system has no OpenGL support. Exiting." );
+		return -1;
+		}
+
+	CTDisplay *display = new CTDisplay(fullScreen, window);
+	app.setMainWidget(display);
+	display->show();
+	return app.exec();
+	}
+
+
+//
+//  Main program: 
+//  	- parse arguments
+//  	- set modes
+//  	- start application
+//
+int main(int argc, char **argv)
+	{
+	const bool cModal = true;
+	const bool cFullScreen = true;
+
+	WId previewWindow;
+	ExecutionMode mode = parseArgs(argc, argv, previewWindow);
+	QApplication app(argc, argv);
+
+	switch(mode)
+		{
+		case cShowSettings:
+			cout << "Show settings" << endl;
+			showSettings(!cModal);
+			break;
+		case cShowSettingsModal:
+			cout << "Show settings modal" << endl;
+			showSettings(cModal);
+			break;
+		case cPreview:
+			cout << "Preview, HWND = " << previewWindow << endl;
+			printf("Preview, HWND = 0x%x\n", previewWindow);
+			return runSaver(app, !cFullScreen, previewWindow);
+			break;
+		case cRunSaver:
+			cout << "Run Saver" << endl;
+			return runSaver(app, cFullScreen);
+			break;
+		case cRunDebugWindow:
+			cout << "Run Saver in debug window" << endl;
+			return runSaver(app, !cFullScreen);
+			break;
+		}
+
+	return 0;
+	}
+
+@
+
+
+1.3
+log
+@proto-display can clear screen
+@
+text
+@d36 1
+d38 1
+a39 1
+// void QWidget::create ( WId window = 0, bool initializeWindow = TRUE, bool destroyOldWindow = TRUE )
+d106 1
+@
+
+
+1.2
+log
+@Settings dialog has fields and validators
+@
+text
+@d14 3
+a16 2
+	cPreview, // preview Screen saver
+	cRunSaver // run the screen saver
+d41 3
+d63 1
+a63 1
+int runSaver(WId window = 0)
+d65 10
+a74 2
+	CTDisplay *display = new CTDisplay(window);
+	return display->exec();
+d87 1
+d105 1
+a105 1
+			runSaver(previewWindow);
+d109 5
+a113 1
+			runSaver();
+d116 2
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d35 2
+a36 1
+			previewWindow = strtol(*argv, 0, 10);
+d51 1
+a51 1
+	CTSettingsDialog *dialog = new CTSettingsDialog;
+d78 1
+a78 1
+	QApplication app(argc, argv, cUseGUI);
+d91 1
+a91 1
+			cout << "Preview" << endl;
+@

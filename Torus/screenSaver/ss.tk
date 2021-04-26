@@ -1,0 +1,156 @@
+set omega1 0.48566516831488
+set omega2 0.90519373301868
+set epsilon 0.5
+set sliderResolution 1000
+
+set torusFrame [frame .torus]
+pack append . $torusFrame {fillx}
+
+# 'quit' frame over graphics
+set quitFrame [frame $torusFrame.t]
+set quitb [button $quitFrame.quit -width 10 -text "Quit" -command "destroy ."]
+set interButton [button $quitFrame.intr -width 10  \
+	-text "Interrupt" -command "set numberFramesToAnimate 0"]
+pack append $quitFrame $quitb {left pady 5} 
+pack append $quitFrame $interButton {right pady 5}
+pack append $torusFrame $quitFrame {fillx} 
+
+# 'graphics' frame just has graphics 
+set graphicsFrame [frame $torusFrame.m]
+set gfx [glxwin $graphicsFrame.m  -width 400 -height 400 -rgb true -db true]
+pack append  $graphicsFrame $gfx {left expand fill} 
+pack append $torusFrame $graphicsFrame {expand fill}
+
+# 'scale' frame has horiz scales for omega1, omega2 and epsilon
+set scaleFrame [frame $torusFrame.s]
+foreach slider { omega1 omega2 epsilon } {
+    global sliderResolution
+    set thisScale \
+	[scale $scaleFrame.$slider \
+	    -label $slider \
+	    -showvalue 1 \
+	    -orient horizontal \
+	    -from 0 -to $sliderResolution]
+    pack append  $scaleFrame $thisScale {fillx}
+
+    #  set scale to initial value of this variable and configure it to
+    #  call the generic valueScaler
+    $thisScale set [expr int($$slider*$sliderResolution + 0.5)]
+    $thisScale config -command "valueScaler $slider"
+}
+pack append $torusFrame $scaleFrame {expand fill}
+
+#
+#  event bindings for standard stuff
+#
+bind $gfx <Map> {if [%W islinked] {gl-init}}
+bind $gfx <Expose> gl-render
+bind $gfx <Configure> {if [%W islinked] {glx_viewport %w %h}}
+
+wm minsize . 300 300
+
+#
+#  I'd really like epsilon to go from 0-3
+#
+$scaleFrame.epsilon configure -to 3000
+
+#
+#  valueScaler takes unscaled values (0-$sliderResolution), 
+#	then divides it by $sliderResolution, and sets the appropriate 
+#	variable in TCL and the main program
+proc valueScaler { variable unscaledValue } {
+    global $variable
+    global sliderResolution
+    set scaledValue [expr $unscaledValue/($sliderResolution*1.0)]
+    set $variable $scaledValue
+    # puts [format "%s is %f\n" $variable [expr $$variable]]
+    gl-param $variable $scaledValue
+    gl-render
+}
+
+set numberFramesToAnimate 0
+set parameterDiffVector {}
+set currentAnimateValues {}
+
+#
+#  set attractor parameters from cv vector. 
+#	Would like to keep sliders up-to-date, but it makes animations
+#	run 3 times slower.
+#
+proc setParametersFromCurrent cv {
+    set omega1 [lindex $cv 0]
+    set omega2 [lindex $cv 1]
+    set epsilon [lindex $cv 2]
+
+    foreach v { omega1 omega2 epsilon } {
+	# global sliderResolution scaleFrame
+	# set sliderValue [expr int($$v*$sliderResolution)]
+	# $scaleFrame.$v set $sliderValue
+	gl-param $v [expr $$v]
+    }
+}
+
+#
+#  Animate from starting to ending values, in given number of frames
+#
+proc animate { numberFrames endValues {beginValues {-1 -1 -1}} } { 
+    global omega1 omega2 epsilon
+    global numberFramesToAnimate parameterDiffVector currentAnimateValues
+
+    set useCurrentForBegin 1
+    foreach i { 0 1 2 } {
+	if { [lindex $beginValues $i] != -1 } {
+	    set useCurrentForBegin 0
+	}
+    }
+    if { $useCurrentForBegin } {
+	set beginValues [concat $omega1 $omega2 $epsilon]
+    }
+
+    set currentAnimateValues $beginValues
+
+    #
+    #  compute difference vector
+    #
+    set parameterDiffVector {}
+    foreach i { 0 1 2 } {
+	set begin [lindex $beginValues $i]
+	set end [lindex $endValues $i]
+	set diff [expr ($end-$begin)/(1.0*$numberFrames)]
+	lappend parameterDiffVector $diff
+    }
+
+    #
+    # set number of frames and call step function
+    #
+    set numberFramesToAnimate $numberFrames
+    stepAnimation
+}
+
+
+#
+#  display at current values
+#  add diff vector to current values
+#  decrement number of frames to animate
+#  if there are more, call myself after a 0ms delay
+#
+proc stepAnimation {} {
+    global numberFramesToAnimate parameterDiffVector currentAnimateValues
+
+    setParametersFromCurrent $currentAnimateValues
+    gl-render
+
+    incr numberFramesToAnimate -1
+
+    if { $numberFramesToAnimate >= 0 } {
+	set newValues {}
+	foreach i { 0 1 2 } {
+	    lappend newValues [expr [lindex $currentAnimateValues $i]+[lindex $parameterDiffVector $i]]
+	}
+	set currentAnimateValues $newValues
+	update idletasks
+	after 0 stepAnimation
+    }
+}
+
+

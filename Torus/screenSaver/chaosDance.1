@@ -1,0 +1,96 @@
+'\"macro stdmacro
+.if n .pH man1.chaosDance @(#)chaosDance
+.TH CHAOSDANCE 1
+.SH NAME
+chaosDance - dancing shapes screen saver 
+.SH SYNOPSIS
+.B chaosDance
+[
+.B \-p stepSize
+]
+[
+.B \-s shape
+]
+[
+.B \-c complexity
+]
+[
+.B \-i iterations
+]
+[
+.B \-n oldShapes
+]
+[
+.B \-f fade
+]
+
+.SH DESCRIPTION
+.I chaosDance 
+is a screen saver that animates deformations of different 
+shapes.  The deformation is controlled by the same function used to
+create chaotic attractors in 
+.B chaosMorph.
+.PP
+.B \-p 
+.I stepSize
+.RS
+sets amount that the function parameters are changed after
+each frame is displayed (default .01).  A smaller number results in
+smoother, but slower, deformations.  
+.RE
+.PP
+.B \-s 
+.I shape
+.RS
+the name of a pre-programmed shape to deform (default circle).  The
+currently supported shapes are:
+.RS
+.IP circle 
+a circle.
+.IP grid
+a 5x5 grid.
+.RE
+.RE
+.PP
+.B \-c 
+.I complexity
+.RS
+complexity of the shape to be deformed.  Each shape is defined to
+be smooth before being deformed, but it may become jagged after
+deformation.  The complexity can be used to improve the smoothness,
+with a possible performance penalty.  Most shapes scale up their
+internal complexity when the number of iterations (see below) is
+increased.  The default complexity varies with each shape:
+.RS
+.IP circle 
+(100) the number of points on the circle.
+.IP grid 
+(1) the number of points from one along one grid side.
+.RE
+.RE
+.PP
+.B \-i 
+.I iterations
+.RS
+the number of iterations of the deformation to be performed (default
+2).  A single deformation is often not very interesting.  There is
+a corresponding drop in performance.
+.RE
+.PP
+.B \-n 
+.I oldShapes
+.RS
+display previous deformations (default 10).
+.RE
+.PP
+.B \-f 
+.I fade
+.RS
+amount to fade previous deformations (default 0.95).  A value of
+1.0 does not fade the color of older deformations.  Smaller values
+cause the older deformations to fade more quickly.
+.RE
+.SH SEE ALSO
+chaosMorph(1)
+.SH BUGS
+FILL IN HERE!

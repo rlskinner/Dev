@@ -1,0 +1,14 @@
+Features & Syntax:
+    S STR : vary shape: torus, sphere, cylinder, disk
+    r N : slice resolution
+    M f : major radius
+    m f : minor radius
+    i f : increment in minor radius between slices
+    d N : number of slices to display
+    D N : number of slices to save
+    f f : fade decay / slice
+    a f f : add slice at omega to front
+    c N : bucket count
+    s : shift slices
+    u : update display
+    * colormap?

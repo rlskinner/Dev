@@ -1,0 +1,66 @@
+head	1.1;
+access;
+symbols;
+locks
+	Robert:1.1; strict;
+comment	@ * @;
+
+
+1.1
+date	2006.05.28.05.53.14;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Initial working version in Windows.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#ifndef	_cell2D_h_
+#define	_cell2D_h_
+//
+//	class to enable better code sharing and modularity
+//	for torus algorithms & GLUT
+//
+
+#include <GL/gl.h>
+
+#include <TorusEvaluator.h>
+
+#include "glutApp.h"
+
+
+// we should really make this class completely abstract,
+//	with no data, but cheat for now
+class	cell2D : public glutApp {
+public:
+    cell2D();
+
+protected:
+    virtual void	createWindows();
+
+    virtual	void	display();
+    virtual	void	displayInit();
+    virtual	void	idle();
+    virtual	void	idleInit();
+    virtual	void	keyboard( unsigned char key, int x, int y );
+    virtual	void	mouse( int button, int state, int x, int y );
+
+    virtual	void	init( int &argc, char *argv[] );
+
+    TorusEvaluator	*_torus;
+    GLubyte	*_cells;
+    float	*_pts;
+
+private:
+
+};
+
+#endif	// _cell2D_h_
+@

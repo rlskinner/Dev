@@ -1,0 +1,55 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	94.12.08.21.01.41;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	94.12.08.20.39.18;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@ a circle shape for the shape dancing screen saver
+@
+
+
+1.2
+log
+@shapes now inform calling program of their parameter extent
+@
+text
+@//
+//  generic shape for the ShapeMorph class
+//
+
+#include	"shape.h"
+
+class CircleShape : public Shape {
+public:
+		CircleShape();
+    virtual	~CircleShape();
+
+protected:
+    virtual	void    drawShape( ShapePoint *shape, u_long color );
+    virtual	void	init( Interval &theta, Interval &psi );
+    virtual	void	initTemplateShape();
+    virtual     void    setShapeParameters();
+};
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d14 1
+@

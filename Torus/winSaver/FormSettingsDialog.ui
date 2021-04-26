@@ -1,0 +1,201 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>FormSettingsDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>FormSettingsDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>244</width>
+            <height>175</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>ChaosTorus Settings</string>
+    </property>
+    <widget class="QLayoutWidget">
+        <property name="name">
+            <cstring>layout5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>12</x>
+                <y>12</y>
+                <width>220</width>
+                <height>151</height>
+            </rect>
+        </property>
+        <vbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <property name="margin">
+                <number>0</number>
+            </property>
+            <property name="spacing">
+                <number>5</number>
+            </property>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout2</cstring>
+                </property>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLineEdit" row="4" column="1">
+                        <property name="name">
+                            <cstring>lookupTableSizeLineEdit_</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>LineEditPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="1" column="1">
+                        <property name="name">
+                            <cstring>maxIterPerFrameLineEdit_</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="4" column="0">
+                        <property name="name">
+                            <cstring>lookupTableSizeLabel_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Lookup Table Size</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="2" column="1">
+                        <property name="name">
+                            <cstring>paramStepSizeLineEdit_</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="3" column="1">
+                        <property name="name">
+                            <cstring>tileSizeLineEdit_</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>paramStepSizeLabel_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Parameter Step Size</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>maxIterPerFrameLabel_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Max Iterations / Frame</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0">
+                        <property name="name">
+                            <cstring>tileSizeLabel_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Tile Size (pixels)</string>
+                        </property>
+                    </widget>
+                    <widget class="QSpinBox" row="0" column="1">
+                        <property name="name">
+                            <cstring>maxNumCellHitsSpinBox_</cstring>
+                        </property>
+                        <property name="maxValue">
+                            <number>255</number>
+                        </property>
+                        <property name="minValue">
+                            <number>1</number>
+                        </property>
+                        <property name="value">
+                            <number>100</number>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>maxNumCellHitsLabel_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Max Number of Cell Hits</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout4</cstring>
+                </property>
+                <hbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QPushButton">
+                        <property name="name">
+                            <cstring>okPB_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Ok</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton">
+                        <property name="name">
+                            <cstring>cancelPB_</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Cancel</string>
+                        </property>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer1</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>40</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </hbox>
+            </widget>
+        </vbox>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>okPB_</sender>
+        <signal>clicked()</signal>
+        <receiver>FormSettingsDialog</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>cancelPB_</sender>
+        <signal>clicked()</signal>
+        <receiver>FormSettingsDialog</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>maxNumCellHitsSpinBox_</tabstop>
+    <tabstop>maxIterPerFrameLineEdit_</tabstop>
+    <tabstop>paramStepSizeLineEdit_</tabstop>
+    <tabstop>tileSizeLineEdit_</tabstop>
+    <tabstop>lookupTableSizeLineEdit_</tabstop>
+    <tabstop>okPB_</tabstop>
+    <tabstop>cancelPB_</tabstop>
+</tabstops>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

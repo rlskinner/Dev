@@ -1,0 +1,115 @@
+head	1.3;
+access;
+symbols;
+locks
+	Robert:1.3; strict;
+comment	@ * @;
+
+
+1.3
+date	2006.10.25.01.45.48;	author Robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2006.07.12.19.36.51;	author Robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2006.06.21.21.04.37;	author Robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Basic Chaos Torus Display window.
+@
+
+
+1.3
+log
+@Pull in code from the IRISGL implementation.
+@
+text
+@#ifndef _CTDisplay_h_
+#define _CTDisplay_h_
+
+#include <qwidget.h>
+#include <qgl.h>
+
+#include "CTSettings.h"
+#include "TorusEvaluator.h"
+
+#include <GL/gl.h>
+
+class TorusTableAttractor;
+class TorusTiler;
+class spaceSampler;
+class HilbertColorSequence;
+
+class CTDisplay : public QGLWidget
+	{
+	protected:
+		CTSettings settings_; // display settings
+		TorusEvaluator torusEval_; // evaluator for torus
+		TorusTableAttractor *attractor; // computes torus attractor 
+		TorusTiler *tiler; // tiles torus to display
+		spaceSampler *torusParamSampler; // samples space of the torus parameters
+		HilbertColorSequence *colorSequence; // iterates through a color sequence
+
+		//  (From AttractorMorph)
+		float	torusParameterBounds[2][3];	// range of omega1, 2, epsilon
+
+		//
+		//  (From AttractorMorph) configurable parameters
+		//
+		int     numIterations;			// # of attractor iterations
+		float	paramStepSize;			// step size in param space
+		float	tileScale;			// size of lookup table
+		int		tileSize;			// size of tile in pixels
+		int		maxIntensity;			// # of hits to stop
+
+	public:
+		CTDisplay(bool fullScreen, WId window = 0);
+
+		int exec();
+
+	protected:
+		virtual void initializeGL();
+		virtual void resizeGL(int width, int height);
+		virtual void paintGL();
+		virtual void timerEvent(QTimerEvent*);
+
+		static const int timer_interval = 10;	// timer interval (millisec)
+	};
+
+#endif // _CTDisplay_h_
+@
+
+
+1.2
+log
+@proto-display can clear screen
+@
+text
+@d7 3
+d12 5
+d19 20
+@
+
+
+1.1
+log
+@Settings dialog has fields and validators
+@
+text
+@d5 1
+d7 3
+a9 1
+class CTDisplay
+d12 11
+a22 2
+		CTDisplay(WId window = 0);
+	int exec();
+@

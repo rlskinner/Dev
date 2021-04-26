@@ -1,0 +1,355 @@
+0.  Basic implementation:
+	Single buffered, no accelerations.
+
+Results:
+
+================================
+performance numbers for 128x128 image, 5x4 tiles
+average frame time = 0.468261 sec (2.13556 frames/sec)
+minimum frame time = 0.460138 sec
+maximum frame time = 0.674641 sec
+frame time standard deviation = 0.0154372 sec
+number frames faster than 60Hz = 0
+================================
+performance numbers for 256x256 image, 5x4 tiles
+average frame time = 0.461261 sec (2.16797 frames/sec)
+minimum frame time = 0.457215 sec
+maximum frame time = 0.47899 sec
+frame time standard deviation = 0.00280511 sec
+number frames faster than 60Hz = 0
+
+
+Basic block numbers:
+  Experiment: /usr/people/robert/fun/torus/screenSaver/test0000
+        Host: texas
+  Executable: /usr/people/robert/fun/torus/screenSaver/perfTest
+Thread (PID): 0 (14295)
+
+--------------------------------------------------------------------
+Left Caliper: Sample #  1     Tue  12 Jul 94  09:15:31.669
+	Process time:     0.191  
+	Target Start: Thread 0 (sample only self)
+
+Right Caliper: Sample #188     Tue  12 Jul 94  09:18:54.918
+	Process time:   188.545  
+	Entry to syscall exit: Thread 0 (only self)
+
+
+					Incl	Excl	Incl	Excl
+					Total	Total	Total	Total
+					(ms)	(ms)	(%)	(%)
+--------------------------------------------------------------------
+doPerformanceTest(int,int,int,int)	183.290	  5.063	 97.31	  2.69
+    TorusAttractor::mapPoint(double,double,double*,double*)	
+					 83.037	 28.354	 44.09	 15.05
+	sin				 52.658	 52.658	 27.96	 27.96
+	floor				  7.089	  3.038	  3.76	  1.61
+	    __trunc			  4.051	  4.051	  2.15	  2.15
+		    
+    TorusTiler::drawPoint(int,int)	 95.189	 45.569	 50.54	 24.19
+	__GLbgnpoint			  2.025	  2.025	  1.08	  1.08
+	__GLv2s				 13.164	 13.164	  6.99	  6.99
+	gl_i_v2s			 31.392	 31.392	 16.67	 16.67
+	gl_i_endpoint			  2.025	  2.025	  1.08	  1.08
+	gl_i_bgnpoint			  1.013	  1.013	  0.54	  0.54
+		
+##############################################################################
+1.  Use flags to prevent drawing pixels that are already set
+
+    Results:
+
+================================
+performance numbers for 128x128 image, 5x4 tiles
+average frame time = 0.371049 sec (2.69506 frames/sec)
+minimum frame time = 0.253903 sec
+maximum frame time = 0.574523 sec
+frame time standard deviation = 0.0683468 sec
+number frames faster than 60Hz = 0
+================================
+performance numbers for 256x256 image, 5x4 tiles
+average frame time = 0.429755 sec (2.32691 frames/sec)
+minimum frame time = 0.257268 sec
+maximum frame time = 0.638307 sec
+frame time standard deviation = 0.0982757 sec
+number frames faster than 60Hz = 0
+
+Note:
+	1.  The deviation is higher
+	2.  The min is lower
+	3.  the frame rate is better for 128x128, because of more collisions
+
+
+Basic block numbers:
+  Experiment: /usr/people/robert/fun/torus/screenSaver/test0001
+        Host: texas
+  Executable: /usr/people/robert/fun/torus/screenSaver/perfTest
+Thread (PID): 0 (14551)
+
+--------------------------------------------------------------------
+Left Caliper: Sample #  1     Tue  12 Jul 94  10:00:29.784
+	Process time:     0.186  
+	Target Start: Thread 0 (sample only self)
+
+Right Caliper: Sample #163     Tue  12 Jul 94  10:03:19.313
+	Process time:   163.249  
+	Entry to syscall exit: Thread 0 (only self)
+
+
+					Incl	Excl	Incl	Excl
+					Total	Total	Total	Total
+					(ms)	(ms)	(%)	(%)
+--------------------------------------------------------------------
+doPerformanceTest(int,int,int,int)	162.049	  6.077	 99.38	  3.73
+    TorusAttractor::mapPoint(double,double,double*,double*)
+					 96.217	 30.384	 59.01	 18.63
+	sin				 64.820	 64.820	 39.75	 39.75
+	floor				  2.026	  1.013	  1.24	  0.62
+	    __trunc			  1.013	  1.013	  0.62	  0.62
+    TorusTiler::drawPoint(int,int)	 59.756	 31.397	 36.65	 19.25
+	__GLv2s				 17.218	 17.218	 10.56	 10.56
+	gl_i_v2s			 10.128	 10.128	  6.21	  6.21
+	gl_i_endpoint			  1.013	  1.013	  0.62	  0.62
+
+##############################################################################
+2.  Use the previous frame's last theta,psi values as a starting point
+
+Results:
+
+================================
+performance numbers for 128x128 image, 5x4 tiles
+average frame time = 0.37461 sec (2.66944 frames/sec)
+minimum frame time = 0.287891 sec
+maximum frame time = 0.587746 sec
+frame time standard deviation = 0.050217 sec
+number frames faster than 60Hz = 0
+================================
+performance numbers for 256x256 image, 5x4 tiles
+average frame time = 0.411409 sec (2.43067 frames/sec)
+minimum frame time = 0.291377 sec
+maximum frame time = 0.54509 sec
+frame time standard deviation = 0.0665441 sec
+number frames faster than 60Hz = 0
+
+Note: 
+    This had more of an effect than I expected.
+
+
+Basic block numbers:
+  Experiment: /usr/people/robert/fun/torus/screenSaver/test0002
+        Host: texas
+  Executable: /usr/people/robert/fun/torus/screenSaver/perfTest
+Thread (PID): 0 (17047)
+
+--------------------------------------------------------------------
+Left Caliper: Sample #  1     Tue  12 Jul 94  13:00:36.432
+	Process time:     0.219  
+	Target Start: Thread 0 (sample only self)
+
+Right Caliper: Sample #158     Tue  12 Jul 94  13:03:31.655
+	Process time:   158.456  
+	Entry to syscall exit: Thread 0 (only self)
+
+
+					Incl	Excl	Incl	Excl
+					Total	Total	Total	Total
+					(ms)	(ms)	(%)	(%)
+--------------------------------------------------------------------
+TorusTiler::drawTiledImage(int,TorusAttractor*)	
+					153.165	  4.057	 96.79	  2.56
+    Timer::mark(void)			  1.014	  1.014	  0.64	  0.64
+    TorusAttractor::mapPoint(double,double,double*,double*)	
+					102.448	 34.488	 64.74	 21.79
+	sin				 65.932	 65.932	 41.67	 41.67
+	floor				  7.100	  3.043	  4.49	  1.92
+	    __trunc			  4.057	  4.057	  2.56	  2.56
+    TorusTiler::drawPoint(int,int)	 45.645	 32.459	 28.85	 20.51
+	gl_i_v2s			  9.129	  9.129	  5.77	  5.77
+	__GLv2s				  4.057	  4.057	  2.56	  2.56
+
+
+##############################################################################
+Now take a moment and measure raw drawing performance for a
+few machines.  The sizes are for 128x128 and 256x256, with 5x4 tiling
+factors.  There are 10000 points drawn in each frame, single buffered.
+The Points method simply draws the points in each tile, i.e. 20*10000
+= 200000 points/frame.  The Copy-1 method draws into a single tile,
+then uses rectcopy to create the other 19 tiles.  Copy-2 also uses
+rectcopy, but only uses the bare minimum commands to replicate into a
+5x4 space (5, as opposed to 19, with Copy-1).
+
+Time to draw 100 frames:
+			128x128				256x256
+	Method:	Points	Copy-1	Copy-2		Points	Copy-1	Copy-2
+		------	------	------		------	------	------
+Graphics:Indy	 70.3	  4.05	  4.04		 69.3	  6.99	  6.96
+	Turbo	182	 20.8	 20.9		235	 54.5	 54.6
+	Extreme	 21.1	  6.13	  5.6		 19.8	 17.1	 16.3
+	RE II	 11	  2.1	  2.07		 11.1	  6.21	  6.07
+
+Results are in frames per second:
+			128x128				256x256
+	Method:	Points	Copy-1	Copy-2		Points	Copy-1	Copy-2
+		------	------	------		------	------	------
+Graphics:Indy	  1.42	 24.69	 24.75		  1.44	 14.3	 14.36
+	Turbo	   .54	  4.8	  4.78		   .42    1.83	  1.83
+	Extreme	  4.73	 16.31	 17.85		  5.05	  5.84	  6.13
+	RE II	  9.09	 47.61	 48.3		  9	 16.1	 16.47
+
+Some optimizations can be applied to point drawing, directly increasing
+the speed of the Points method, and partially increasing the speed of
+the Copy methods.  Assuming the time required for the Copy methods
+includes 5% of the time required by the Point method, then if the point
+drawing time were reduced to zero, the frame rate would increase:
+
+Max possible frame rate for Copy methods:
+			128x128                         256x256
+	Method: Points  Copy-1  Copy-2          Points  Copy-1  Copy-2
+		------  ------  ------          ------  ------  ------
+Graphics:Indy     1.42  185.18  188.67            1.44   28.32   28.57
+	Turbo	   .54	  8.54	  8.47		   .42	  2.33	  2.33
+	Extreme   4.73   19.68   21.97            5.05    6.2     6.53
+	RE II     9.09   64.51   65.78            9      17.66   18.11
+
+These should be viewed as maximum possible frame rates for Copy
+methods, where as the max for the Point method is infinite.
+
+So using the Copy method is a clear winner for the Indy.  It
+has a slight advantage for Extreme, but that will be eclipsed by
+savings from avoiding drawing points in *some* frames.  The best
+method for the RE is unclear.
+
+
+##############################################################################
+Along a similar thread, assume that drawing could be done 
+instantaneously, then measure the max frame rate for computing
+10000 points:
+
+	( 83.037 + 96.217 + 102.448 ) / (3*400) = .234 ms / frame
+
+		--> 4.26 frames/sec
+
+So the greatest performance improvement will come in the computation
+of the points.  Will start on that after the drawing optimization 
+is finished.
+
+
+##############################################################################
+3.  Don't clear, just draw or undraw previously drawn cells
+
+Results:
+
+================================
+performance numbers for 128x128 image, 5x4 tiles
+average frame time = 0.383093 sec (2.61033 frames/sec)
+minimum frame time = 0.264203 sec
+maximum frame time = 0.578843 sec
+frame time standard deviation = 0.0634189 sec
+number frames faster than 60Hz = 0
+================================
+performance numbers for 256x256 image, 5x4 tiles
+average frame time = 0.469572 sec (2.1296 frames/sec)
+minimum frame time = 0.284679 sec
+maximum frame time = 0.685368 sec
+frame time standard deviation = 0.0974043 sec
+
+
+  Experiment: /usr/people/robert/fun/torus/screenSaver/test0003
+        Host: texas
+  Executable: /usr/people/robert/fun/torus/screenSaver/perfTest
+Thread (PID): 0 (22297)
+
+--------------------------------------------------------------------
+Left Caliper: Sample #  1     Fri  15 Jul 94  15:20:34.881
+	Process time:     0.189  
+	Target Start: Thread 0 (sample only self)
+
+Right Caliper: Sample #185     Fri  15 Jul 94  15:23:50.896
+	Process time:   184.135  
+	Entry to syscall exit: Thread 0 (only self)
+
+
+					Incl	Excl	Incl	Excl
+					Total	Total	Total	Total
+					(ms)	(ms)	(%)	(%)
+--------------------------------------------------------------------
+TorusTiler::drawTiledImage(int,TorusAttractor*)	
+					180.930	  4.021	 98.360	  2.190
+    TorusTiler::beginFrame(void)	  5.026	  0.000	  2.730	  0.000
+	TorusTiler::beginFrameStates(void)	
+					  5.026	  5.026	  2.730	  2.730
+    TorusAttractor::mapPoint(double,double,double*,double*)	
+					100.517	 28.145	 54.640	 15.300
+	sin				 70.362	 70.362	 38.250	 38.250
+	floor				  5.026	  2.010	  2.730	  1.090
+	    __trunc			  3.015	  3.015	  1.640	  1.640
+    TorusTiler::setCell(int,int,int)	 71.367	  5.026	 38.800	  2.730
+	TorusTiler::drawTiledPoint(int,int,unsigned	
+					 66.341	 32.165	 36.070	 17.490
+	    gl_i_v2s			 20.103	 20.103	 10.930	 10.930
+	    __GLbgnpoint		  6.031	  6.031	  3.280	  3.280
+	    __GLv2s			  4.021	  4.021	  2.190	  2.190
+	    __GLcpack			  2.010	  2.010	  1.090	  1.090
+	    gl_i_endpoint		  1.005	  1.005	  0.550	  0.550
+	    __GLendpoint		  1.005	  1.005	  0.550	  0.550
+
+
+##############################################################################
+4.  Speed up attractor mapping function by precomputing sin tables.
+
+================================
+performance numbers for 128x128 image, 5x4 tiles
+average frame time = 0.206902 sec (4.83321 frames/sec)
+minimum frame time = 0.089174 sec
+maximum frame time = 0.345895 sec
+frame time standard deviation = 0.0603089 sec
+number frames faster than 60Hz = 0
+================================
+performance numbers for 256x256 image, 5x4 tiles
+average frame time = 0.317702 sec (3.1476 frames/sec)
+minimum frame time = 0.107097 sec
+maximum frame time = 0.496879 sec
+frame time standard deviation = 0.0960825 sec
+number frames faster than 60Hz = 0
+
+
+  Experiment: /usr/people/robert/fun/torus/screenSaver/test0004
+        Host: texas
+  Executable: /usr/people/robert/fun/torus/screenSaver/perfTest
+Thread (PID): 0 (25076)
+
+--------------------------------------------------------------------
+Left Caliper: Sample #  1     Mon  18 Jul 94  15:09:50.087
+	Process time:     0.187  
+	Target Start: Thread 0 (sample only self)
+
+Right Caliper: Sample #116     Mon  18 Jul 94  15:12:03.989
+	Process time:   115.018  
+	Entry to syscall exit: Thread 0 (only self)
+
+
+					Incl	Excl	Incl	Excl
+					Total	Total	Total	Total
+					(ms)	(ms)	(%)	(%)
+--------------------------------------------------------------------
+TorusAttractor::TorusAttractor(int,int)	  6.044	  0.000	  5.260	  0.000
+    TorusAttractor::resetParameters(void)	
+					  6.044	  0.000	  5.260	  0.000
+	TorusAttractor::computeP1P2Arrays(void)	
+					  6.044	  1.007	  5.260	  0.880
+	    sin				  5.036	  5.036	  4.390	  4.390
+
+TorusTiler::drawTiledImage(int,TorusAttractor*)	
+					 99.721	  8.058	 86.840	  7.020
+    TorusTiler::beginFrame(void)	  6.044	  0.000	  5.260	  0.000
+	TorusTiler::beginFrameStates(void)	
+					  6.044	  6.044	  5.260	  5.260
+    TorusAttractor::mapPoint(double,double,double*,double*)	
+					 25.182	 21.153	 21.930	 18.420
+	floor				 12.087	  6.044	 10.530	  5.260
+	    __trunc			  6.044	  6.044	  5.260	  5.260
+    TorusTiler::setCell(int,int,int)	 60.437	  3.022	 52.630	  2.630
+	TorusTiler::drawTiledPoint(int,int,unsigned	
+					 57.415	 30.219	 50.000	 26.320
+	    __GLv2s			 12.087	 12.087	 10.530	 10.530
+	    gl_i_v2s			 13.095	 13.095	 11.400	 11.400
+

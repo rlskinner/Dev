@@ -1,0 +1,156 @@
+
+//////////////////////////////////////////////////////////////
+//
+// Source file for VkwindowMainWindow
+//
+//    This class is a ViewKit VkWindow subclass
+//
+//
+// Normally, very little in this file should need to be changed.
+// Create/add/modify menus using the builder.
+//
+// Try to restrict any changes to the bodies of functions
+// corresponding to menu items, the constructor and destructor.
+//
+// Restrict changes to those sections between
+// the "//--- Start/End editable code block" markers
+//
+// Doing so will allow you to make changes using the builder
+// without losing any changes you may have made manually
+//
+// Avoid gratuitous reformatting and other changes that might
+// make it difficult to integrate changes made using the builder
+//////////////////////////////////////////////////////////////
+#include "VkwindowMainWindow.h"
+#include <Vk/VkApp.h>
+#include <Vk/VkFileSelectionDialog.h>
+#include <Vk/VkSubMenu.h>
+#include <Vk/VkRadioSubMenu.h>
+#include <Vk/VkMenuItem.h>
+#include "BulletinBoard.h"
+//---- Start editable code block: headers and declarations
+
+
+//---- End editable code block: headers and declarations
+
+
+
+// These are default resources for widgets in objects of this class
+// All resources will be prepended by *<name> at instantiation,
+// where <name> is the name of the specific instance, as well as the
+// name of the baseWidget. These are only defaults, and may be overriden
+// in a resource file by providing a more specific resource name
+
+String  VkwindowMainWindow::_defaultVkwindowMainWindowResources[] = {
+        "*helpPane.labelString:  Help",
+        "*helpPane.mnemonic:  H",
+        "*help_click_for_help.labelString:  Click For Help",
+        "*help_click_for_help.mnemonic:  C",
+        "*help_click_for_help.accelerator:  Shift<Key>F1",
+        "*help_click_for_help.acceleratorText:  Shift+F1",
+        "*help_overview.labelString:  Overview",
+        "*help_overview.mnemonic:  O",
+        "*help_index.labelString:  Index",
+        "*help_index.mnemonic:  I",
+        "*help_keys_and_short.labelString:  Keys and Shortcuts",
+        "*help_keys_and_short.mnemonic:  K",
+        "*help_prod_info.labelString:  Product Information",
+        "*help_prod_info.mnemonic:  P",
+        (char*)NULL
+};
+
+
+//---- Class declaration
+
+VkwindowMainWindow::VkwindowMainWindow( const char *name,
+                                        ArgList args,
+                                        Cardinal argCount) : 
+                                  VkWindow (name, args, argCount) 
+{
+    // Load any class-default resources for this object
+
+    setDefaultResources(baseWidget(), _defaultVkwindowMainWindowResources  );
+
+
+    // Create the view component contained by this window
+
+    _bulletinBoard= new BulletinBoard("bulletinBoard",mainWindowWidget());
+
+
+    XtVaSetValues ( _bulletinBoard->baseWidget(),
+                    XmNwidth, 500, 
+                    XmNheight, 437, 
+                    (XtPointer) NULL );
+
+    // Add the component as the main view
+
+    addView (_bulletinBoard);
+    _bulletinBoard->setParent(this);
+
+    // Create the panes of this window's menubar. The menubar itself
+    //  is created automatically by ViewKit
+
+
+
+    //---- Start editable code block: VkwindowMainWindow constructor
+
+
+    //---- End editable code block: VkwindowMainWindow constructor
+
+
+} // End Constructor
+
+
+VkwindowMainWindow::~VkwindowMainWindow()
+{
+    delete _bulletinBoard;
+    //---- Start editable code block: VkwindowMainWindow destructor
+
+
+    //---- End editable code block: VkwindowMainWindow destructor
+} // End destructor
+
+
+const char *VkwindowMainWindow::className()
+{
+    return ("VkwindowMainWindow");
+} // End className()
+
+
+Boolean VkwindowMainWindow::okToQuit()
+{    //---- Start editable code block: VkwindowMainWindow okToQuit
+
+
+
+    // This member function is called when the user quits by calling
+    // theApplication->terminate() or uses the window manager close protocol
+    // This function can abort the operation by returning FALSE, or do some.
+    // cleanup before returning TRUE. The actual decision is normally passed on
+    // to the view object
+
+
+    // Query the view object, and give it a chance to cleanup
+
+    return ( _bulletinBoard->okToQuit() );
+
+    //---- End editable code block: VkwindowMainWindow okToQuit
+} // End okToQuit()
+
+
+
+
+
+/////////////////////////////////////////////////////////////// 
+// The following functions are called from the menu items 
+// in this window.
+/////////////////////////////////// 
+
+
+
+
+//---- Start editable code block: End of generated code
+
+
+//---- End editable code block: End of generated code
+
+

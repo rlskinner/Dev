@@ -1,0 +1,5 @@
+-cvstatic
+main.C NCC
+BulletinBoard.C NCC
+BulletinBoardUI.C NCC
+VkwindowMainWindow.C NCC

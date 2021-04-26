@@ -1,0 +1,511 @@
+
+//////////////////////////////////////////////////////////////
+//
+// Source file for VkwindowMainWindow
+//
+//    This class is a ViewKit VkWindow subclass
+//
+//
+// Normally, very little in this file should need to be changed.
+// Create/add/modify menus using the builder.
+//
+// Try to restrict any changes to the bodies of functions
+// corresponding to menu items, the constructor and destructor.
+//
+// Restrict changes to those sections between
+// the "//--- Start/End editable code block" markers
+//
+// Doing so will allow you to make changes using the builder
+// without losing any changes you may have made manually
+//
+// Avoid gratuitous reformatting and other changes that might
+// make it difficult to integrate changes made using the builder
+//////////////////////////////////////////////////////////////
+#include "VkwindowMainWindow.h"
+#include <Vk/VkApp.h>
+#include <Vk/VkFileSelectionDialog.h>
+#include <Vk/VkSubMenu.h>
+#include <Vk/VkRadioSubMenu.h>
+#include <Vk/VkMenuItem.h>
+#include "BulletinBoard.h"
+//---- Start editable code block: headers and declarations
+
+
+//---- End editable code block: headers and declarations
+
+
+
+// These are default resources for widgets in objects of this class
+// All resources will be prepended by *<name> at instantiation,
+// where <name> is the name of the specific instance, as well as the
+// name of the baseWidget. These are only defaults, and may be overriden
+// in a resource file by providing a more specific resource name
+
+String  VkwindowMainWindow::_defaultVkwindowMainWindowResources[] = {
+        "*filePane.labelString:  File",
+        "*filePane.mnemonic:  F",
+        "*newButton.labelString:  New",
+        "*newButton.mnemonic:  N",
+        "*newButton.accelerator:  Ctrl<Key>N",
+        "*newButton.acceleratorText:  Ctrl+N",
+        "*openButton.labelString:  Open...",
+        "*openButton.mnemonic:  O",
+        "*openButton.accelerator:  Ctrl<Key>O",
+        "*openButton.acceleratorText:  Ctrl+O",
+        "*saveButton.labelString:  Save",
+        "*saveButton.mnemonic:  S",
+        "*saveButton.accelerator:  Ctrl<Key>S",
+        "*saveButton.acceleratorText:  Ctrl+S",
+        "*saveasButton.labelString:  Save As...",
+        "*saveasButton.mnemonic:  A",
+        "*printButton.labelString:  Print",
+        "*printButton.mnemonic:  P",
+        "*printButton.accelerator:  Ctrl<Key>P",
+        "*printButton.acceleratorText:  Ctrl+P",
+        "*closeButton.labelString:  Close",
+        "*closeButton.mnemonic:  C",
+        "*closeButton.accelerator:  Ctrl<Key>W",
+        "*closeButton.acceleratorText:  Ctrl+W",
+        "*exitButton.labelString:  Exit",
+        "*exitButton.mnemonic:  x",
+        "*exitButton.accelerator:  Ctrl<Key>Q",
+        "*exitButton.acceleratorText:  Ctrl+Q",
+        "*editPane.labelString:  Edit",
+        "*editPane.mnemonic:  E",
+        "*undoButton.labelString:  Undo",
+        "*undoButton.mnemonic:  U",
+        "*undoButton.accelerator:  Ctrl<Key>Z",
+        "*undoButton.acceleratorText:  Ctrl+Z",
+        "*cutButton.labelString:  Cut",
+        "*cutButton.mnemonic:  t",
+        "*cutButton.accelerator:  Ctrl<Key>X",
+        "*cutButton.acceleratorText:  Ctrl+X",
+        "*copyButton.labelString:  Copy",
+        "*copyButton.mnemonic:  C",
+        "*copyButton.accelerator:  Ctrl<Key>C",
+        "*copyButton.acceleratorText:  Ctrl+C",
+        "*pasteButton.labelString:  Paste",
+        "*pasteButton.mnemonic:  P",
+        "*pasteButton.accelerator:  Ctrl<Key>V",
+        "*pasteButton.acceleratorText:  Ctrl+V",
+        "*viewPane.labelString:  View",
+        "*viewPane.mnemonic:  V",
+        "*optionsPane.labelString:  Options",
+        "*optionsPane.mnemonic:  O",
+        "*helpPane.labelString:  Help",
+        "*helpPane.mnemonic:  H",
+        "*help_click_for_help.labelString:  Click For Help",
+        "*help_click_for_help.mnemonic:  C",
+        "*help_click_for_help.accelerator:  Shift<Key>F1",
+        "*help_click_for_help.acceleratorText:  Shift+F1",
+        "*help_overview.labelString:  Overview",
+        "*help_overview.mnemonic:  O",
+        "*help_index.labelString:  Index",
+        "*help_index.mnemonic:  I",
+        "*help_keys_and_short.labelString:  Keys and Shortcuts",
+        "*help_keys_and_short.mnemonic:  K",
+        "*help_prod_info.labelString:  Product Information",
+        "*help_prod_info.mnemonic:  P",
+        (char*)NULL
+};
+
+
+//---- Class declaration
+
+VkwindowMainWindow::VkwindowMainWindow( const char *name,
+                                        ArgList args,
+                                        Cardinal argCount) : 
+                                  VkWindow (name, args, argCount) 
+{
+    // Load any class-default resources for this object
+
+    setDefaultResources(baseWidget(), _defaultVkwindowMainWindowResources  );
+
+
+    // Create the view component contained by this window
+
+    _bulletinBoard= new BulletinBoard("bulletinBoard",mainWindowWidget());
+
+
+    XtVaSetValues ( _bulletinBoard->baseWidget(),
+                    XmNwidth, 500, 
+                    XmNheight, 437, 
+                    (XtPointer) NULL );
+
+    // Add the component as the main view
+
+    addView (_bulletinBoard);
+    _bulletinBoard->setParent(this);
+
+    // Create the panes of this window's menubar. The menubar itself
+    //  is created automatically by ViewKit
+
+
+    // The filePane menu pane
+
+    _filePane =  addMenuPane("filePane");
+
+    _newButton =  _filePane->addAction ( "newButton", 
+                                        &VkwindowMainWindow::newFileCallback, 
+                                        (XtPointer) this );
+
+    _openButton =  _filePane->addAction ( "openButton", 
+                                        &VkwindowMainWindow::openFileCallback, 
+                                        (XtPointer) this );
+
+    _saveButton =  _filePane->addAction ( "saveButton", 
+                                        &VkwindowMainWindow::saveCallback, 
+                                        (XtPointer) this );
+
+    _saveasButton =  _filePane->addAction ( "saveasButton", 
+                                        &VkwindowMainWindow::saveasCallback, 
+                                        (XtPointer) this );
+
+    _printButton =  _filePane->addAction ( "printButton", 
+                                        &VkwindowMainWindow::printCallback, 
+                                        (XtPointer) this );
+
+    _separator1 =  _filePane->addSeparator();
+
+    _closeButton =  _filePane->addAction ( "closeButton", 
+                                        &VkwindowMainWindow::closeCallback, 
+                                        (XtPointer) this );
+
+    _exitButton =  _filePane->addAction ( "exitButton", 
+                                        &VkwindowMainWindow::quitCallback, 
+                                        (XtPointer) this );
+
+    // The editPane menu pane
+
+    _editPane =  addMenuPane("editPane");
+
+    _editPane->add ( theUndoManager );
+
+    _cutButton =  _editPane->addAction ( "cutButton", 
+                                        &VkwindowMainWindow::cutCallback, 
+                                        (XtPointer) this );
+
+    _copyButton =  _editPane->addAction ( "copyButton", 
+                                        &VkwindowMainWindow::copyCallback, 
+                                        (XtPointer) this );
+
+    _pasteButton =  _editPane->addAction ( "pasteButton", 
+                                        &VkwindowMainWindow::pasteCallback, 
+                                        (XtPointer) this );
+
+    // The viewPane menu pane
+
+    _viewPane =  addMenuPane("viewPane");
+
+    _viewControl1 =  _viewPane->addAction ( "viewControl1",
+                                        NULL, // No callback function given
+                                        (XtPointer) this );
+
+    _viewControl2 =  _viewPane->addAction ( "viewControl2",
+                                        NULL, // No callback function given
+                                        (XtPointer) this );
+
+    _viewControl3 =  _viewPane->addAction ( "viewControl3",
+                                        NULL, // No callback function given
+                                        (XtPointer) this );
+
+    // The optionsPane menu pane
+
+    _optionsPane =  addMenuPane("optionsPane");
+
+    _option1 =  _optionsPane->addToggle ( "option1", 
+                                        NULL, // No Callback given
+                                        (XtPointer) this );
+
+    _option2 =  _optionsPane->addToggle ( "option2", 
+                                        NULL, // No Callback given
+                                        (XtPointer) this );
+
+
+    //---- Start editable code block: VkwindowMainWindow constructor
+
+
+    //---- End editable code block: VkwindowMainWindow constructor
+
+
+} // End Constructor
+
+
+VkwindowMainWindow::~VkwindowMainWindow()
+{
+    delete _bulletinBoard;
+    //---- Start editable code block: VkwindowMainWindow destructor
+
+
+    //---- End editable code block: VkwindowMainWindow destructor
+} // End destructor
+
+
+const char *VkwindowMainWindow::className()
+{
+    return ("VkwindowMainWindow");
+} // End className()
+
+
+Boolean VkwindowMainWindow::okToQuit()
+{    //---- Start editable code block: VkwindowMainWindow okToQuit
+
+
+
+    // This member function is called when the user quits by calling
+    // theApplication->terminate() or uses the window manager close protocol
+    // This function can abort the operation by returning FALSE, or do some.
+    // cleanup before returning TRUE. The actual decision is normally passed on
+    // to the view object
+
+
+    // Query the view object, and give it a chance to cleanup
+
+    return ( _bulletinBoard->okToQuit() );
+
+    //---- End editable code block: VkwindowMainWindow okToQuit
+} // End okToQuit()
+
+
+
+/////////////////////////////////////////////////////////////// 
+// The following functions are static member functions used to 
+// interface with Motif.
+/////////////////////////////////// 
+
+void VkwindowMainWindow::closeCallback ( Widget    w,
+                                         XtPointer clientData,
+                                         XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->close ( w, callData );
+}
+
+void VkwindowMainWindow::copyCallback ( Widget    w,
+                                        XtPointer clientData,
+                                        XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->copy ( w, callData );
+}
+
+void VkwindowMainWindow::cutCallback ( Widget    w,
+                                       XtPointer clientData,
+                                       XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->cut ( w, callData );
+}
+
+void VkwindowMainWindow::newFileCallback ( Widget    w,
+                                           XtPointer clientData,
+                                           XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->newFile ( w, callData );
+}
+
+void VkwindowMainWindow::openFileCallback ( Widget    w,
+                                            XtPointer clientData,
+                                            XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->openFile ( w, callData );
+}
+
+void VkwindowMainWindow::pasteCallback ( Widget    w,
+                                         XtPointer clientData,
+                                         XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->paste ( w, callData );
+}
+
+void VkwindowMainWindow::printCallback ( Widget    w,
+                                         XtPointer clientData,
+                                         XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->print ( w, callData );
+}
+
+void VkwindowMainWindow::quitCallback ( Widget    w,
+                                        XtPointer clientData,
+                                        XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->quit ( w, callData );
+}
+
+void VkwindowMainWindow::saveCallback ( Widget    w,
+                                        XtPointer clientData,
+                                        XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->save ( w, callData );
+}
+
+void VkwindowMainWindow::saveasCallback ( Widget    w,
+                                          XtPointer clientData,
+                                          XtPointer callData ) 
+{ 
+    VkwindowMainWindow* obj = ( VkwindowMainWindow * ) clientData;
+    obj->saveas ( w, callData );
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////// 
+// The following functions are called from the menu items 
+// in this window.
+/////////////////////////////////// 
+
+void VkwindowMainWindow::close ( Widget, XtPointer ) 
+{
+    // To close a window, just delete the object
+    // checking first with the view object.
+    // If this is the last window, ViewKit will exit
+
+    if(okToQuit())
+        delete this;
+
+} // End VkwindowMainWindow::close()
+
+void VkwindowMainWindow::copy ( Widget w, XtPointer callData ) 
+{
+    //---- Start editable code block: VkwindowMainWindow copy
+
+
+    // This virtual function is called from copyCallback.
+    // By default this member function passes control
+    // to the component contained by this window
+
+    _bulletinBoard->copy();
+
+
+    //---- End editable code block: VkwindowMainWindow copy
+
+} // End VkwindowMainWindow::copy()
+
+
+void VkwindowMainWindow::cut ( Widget w, XtPointer callData ) 
+{
+    //---- Start editable code block: VkwindowMainWindow cut
+
+
+    // This virtual function is called from cutCallback.
+    // By default this member function passes control
+    // to the component contained by this window
+
+    _bulletinBoard->cut();
+
+
+    //---- End editable code block: VkwindowMainWindow cut
+
+} // End VkwindowMainWindow::cut()
+
+
+void VkwindowMainWindow::newFile ( Widget w, XtPointer callData ) 
+{
+    //---- Start editable code block: VkwindowMainWindow newFile
+
+
+    // This virtual function is called from newFileCallback.
+    // By default this member function passes control
+    // to the component contained by this window
+
+    _bulletinBoard->newFile();
+
+
+    //---- End editable code block: VkwindowMainWindow newFile
+
+} // End VkwindowMainWindow::newFile()
+
+
+void VkwindowMainWindow::openFile ( Widget, XtPointer ) 
+{
+    // This virtual function is called from openFileCallback
+    // Use the blocking mode of the file selection
+    // dialog to get a file before calling view object's openFile()
+
+    if(theFileSelectionDialog->postAndWait() == VkDialogManager::OK)
+    {
+        _bulletinBoard->openFile(theFileSelectionDialog->fileName());
+    }
+}  // End VkwindowMainWindow::openFile()
+
+void VkwindowMainWindow::paste ( Widget w, XtPointer callData ) 
+{
+    //---- Start editable code block: VkwindowMainWindow paste
+
+
+    // This virtual function is called from pasteCallback.
+    // By default this member function passes control
+    // to the component contained by this window
+
+    _bulletinBoard->paste();
+
+
+    //---- End editable code block: VkwindowMainWindow paste
+
+} // End VkwindowMainWindow::paste()
+
+
+void VkwindowMainWindow::print ( Widget, XtPointer ) 
+{
+    // This virtual function is called from printCallback
+_bulletinBoard->print(NULL);
+
+}  // End VkwindowMainWindow::print()
+
+void VkwindowMainWindow::quit ( Widget, XtPointer ) 
+{
+    // Exit via quitYourself() to allow the application
+    // to go through its normal shutdown routines, checking with
+    // all windows, views, and so on.
+
+    theApplication->quitYourself();
+
+}  // End VkwindowMainWindow::quit()
+
+void VkwindowMainWindow::save ( Widget w, XtPointer callData ) 
+{
+    //---- Start editable code block: VkwindowMainWindow save
+
+
+    // This virtual function is called from saveCallback.
+    // By default this member function passes control
+    // to the component contained by this window
+
+    _bulletinBoard->save();
+
+
+    //---- End editable code block: VkwindowMainWindow save
+
+} // End VkwindowMainWindow::save()
+
+
+void VkwindowMainWindow::saveas ( Widget, XtPointer ) 
+{
+    // This virtual function is called from saveasCallback
+    // Use the blocking mode of the file selection
+    // dialog to get a file before calling view object's save()
+
+    if(theFileSelectionDialog->postAndWait() == VkDialogManager::OK)
+    {
+        _bulletinBoard->saveas(theFileSelectionDialog->fileName());
+
+    }
+} // End VkwindowMainWindow::saveAs()
+
+
+
+
+//---- Start editable code block: End of generated code
+
+
+//---- End editable code block: End of generated code
+
+

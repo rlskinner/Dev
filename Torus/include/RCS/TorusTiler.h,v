@@ -1,0 +1,160 @@
+head	1.5;
+access;
+symbols;
+locks
+	robert:1.5; strict;
+comment	@ * @;
+
+
+1.5
+date	94.09.05.06.15.22;	author robert;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	94.07.18.22.53.23;	author robert;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	94.07.12.23.59.46;	author robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	94.07.12.19.34.49;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	94.07.12.16.43.00;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@Class to draw tiled torus attractor images efficiently
+@
+
+
+1.5
+log
+@ Tile image by using rectcopy()
+@
+text
+@#ifndef	_TORUSTILER_H__
+#define	_TORUSTILER_H__
+//
+//  An ADT that knows how to tile the Torus attractor into a 
+//	a graphics window.
+//
+
+#include	<sys/types.h>
+
+#include	"TorusAttractor.h"
+
+struct	cellPosition {
+	short	x, y;			// cell positions w/in an image
+};
+
+class	TorusTiler {
+public:
+    TorusTiler( int tileWidth, int tileHeight, int numColumns, int numRows );
+    ~TorusTiler();
+    
+    void	setDrawingColor( u_long c ) 	{ drawingColor = c; }
+    void	setBackgroundColor( u_long c ) 	{ backgroundColor = c; }
+
+    float	drawTiledImage( int numIterations, TorusAttractor *torus );
+
+private:
+    double	lastTheta, lastPsi;	// remember previous frame's theta, psi 
+
+    void	beginFrame();		// do setup operations before drawing
+    void	drawTiledPoint( int x, int y, u_long color );	// draw (tiled) point
+    void	drawPoint( int x, int y );	// draw if not already drawn
+    void	endFrame();		// do operations after drawing points.
+    int		openBeginEndPoint;
+
+    u_long	drawingColor;		// RRGGBBAA packed drawing color
+    u_long	backgroundColor;	// packed background color
+
+    int		tileWidth, tileHeight;	// tile size
+    int		numColumns, numRows;		// tiling factors
+
+    int		numTiles;
+
+    char	*cellStates;		// state flags for drawing efficiently
+    int		getCellIndex( int i, int j )	{ return j*tileWidth + i; }
+    void	beginFrameStates();
+    void	endFrameStates();
+
+};
+#endif	/* _TORUSTILER_H__ */
+@
+
+
+1.4
+log
+@never erase, keep track of cells set, and unset or set only
+those needed.
+@
+text
+@d31 1
+a31 1
+    void	setCell( int numCell, int x, int y );	// set cell if needed
+d33 1
+a41 1
+    cellPosition    *tileOffsets;	// precomputed offsets to do tiling
+a47 4
+    cellPosition    *lastPositions;	// cell hit in last frame, 
+    					//	for each iteration
+    int		numPositions;		// size of Position array
+    void	resizePositionArray( int n );
+@
+
+
+1.3
+log
+@#ifndef include file.
+move image drawing loop into TorusTiler, so it can control
+starting position.
+@
+text
+@d12 4
+d30 2
+a31 1
+    void	drawPoint( int x, int y );	// draw (tiled) point
+d41 1
+a41 2
+    int		*tileColumnOffsets;	// precomputed offsets to do tiling
+    int		*tileRowOffsets;
+d44 1
+d47 5
+a51 1
+    int		getStateIndex( int i, int j )	{ return j*tileWidth + i; }
+@
+
+
+1.2
+log
+@draw only cells that haven't already been drawn
+@
+text
+@d1 2
+d10 2
+d20 5
+a28 1
+private:
+d44 1
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d11 1
+d30 5
+@

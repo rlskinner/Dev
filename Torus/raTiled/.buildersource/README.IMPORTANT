@@ -1,0 +1,6 @@
+This directory contains original sources generated the builder
+used to create the code in the parent directory.
+it is crucial to helping the builder maintain the sources
+as the code evolves. DO NOT REMOVE THESE FILES
+OR THIS DIRECTORY, unless you are SURE you will not be using
+the builder again to work on this project

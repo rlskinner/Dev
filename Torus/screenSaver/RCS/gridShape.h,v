@@ -1,0 +1,47 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.1
+date	94.12.09.23.09.06;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@grid shape for chaos shape dancer
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@//
+//  generic shape for the ShapeMorph class
+//
+
+#include	"shape.h"
+
+const	int	numGrids = 5;
+
+class GridShape : public Shape {
+public:
+		GridShape();
+    virtual	~GridShape();
+
+protected:
+    virtual	void    drawShape( ShapePoint *shape, u_long color );
+    virtual	void	init( Interval &theta, Interval &psi );
+    virtual	void	initTemplateShape();
+    virtual     void    setShapeParameters();
+
+    int numLines;     			// number of lines to draw
+    int numPtsPerLine;			// complex = # points on grid side
+
+};
+@
