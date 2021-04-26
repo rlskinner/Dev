@@ -1,0 +1,3 @@
+playback input /hosts/texas/usr/people/robert/.dbxinit
+
+set $promptonfork = 0

@@ -1,0 +1,38 @@
+#!/usr/sbin/imgtcl
+#
+# This script can be used to create a screen sized background image from
+# an arbitrarily sized input image.  The screen is assumed to be 1280x1024.
+# The output file format is inferred from the output filename.
+#
+
+# check arguments
+
+if {$argc != 2} {
+    puts "Usage: imgbg <input-file> <output-file>"
+    exit 1
+}
+
+# open the input image
+
+ilFileImgOpen infile [lindex $argv 0]
+
+# compute the zoom factor needed to fill a 1280x1024 output
+
+new iflSize size {1} 
+infile getSize size
+set xzoom [expr 1280./[$size 0 x]]
+set yzoom [expr 1024./[$size 0 y]]
+set zoomfactor [expr $xzoom > $yzoom? $xzoom : $yzoom]
+
+# create a zoomed version of the image 1280x1024, use bi-linear resampling
+
+ilRotZoomImg zoom $infile 0 $zoomfactor $zoomfactor ilBiCubic
+zoom setXYsize 1280 1024
+view zoom
+
+# save it in the ouput file
+
+ilFileImgCreate outfile [lindex $argv 1] zoom 
+ilSetDither ilFSDither
+outfile copy zoom
+outfile delete

@@ -1,0 +1,10 @@
+First_Out := (float)First_In;
+
+int	ny = shape(First_Out)[1];
+
+int j;
+for( j=0; j<ny; j += 1 ) {
+    First_Out[j] = (float)j/((float)ny-1.0);
+}
+
+

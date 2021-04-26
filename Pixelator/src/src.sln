@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pbn", "E:/Home/Robert/dev/Fun/Pixelator/src/pbn\pbn.vcproj", "{7B29FF4B-B104-3893-B98B-93B7D1CE34E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug|Win32
+		ConfigName.1 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7B29FF4B-B104-3893-B98B-93B7D1CE34E8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7B29FF4B-B104-3893-B98B-93B7D1CE34E8}.Debug|Win32.Build.0 = Debug|Win32
+		{7B29FF4B-B104-3893-B98B-93B7D1CE34E8}.Release|Win32.ActiveCfg = Release|Win32
+		{7B29FF4B-B104-3893-B98B-93B7D1CE34E8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

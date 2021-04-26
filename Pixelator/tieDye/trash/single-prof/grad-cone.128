@@ -1,0 +1,61 @@
+-------------------------------------------------------------------------------
+Profile listing generated Thu Jan 13 13:05:22 1994
+    with:	prof glEat glEat.mon.5747 
+-------------------------------------------------------------------------------
+
+samples   time    CPU    FPU   Clock   N-cpu  S-interval Countsize
+  80686 8.1e+02s R2000A/R3000 R2010A/R3010  33.0MHz   1     10.0ms     2(bytes)
+
+Each sample covers 4 bytes for every 10.0ms ( 0.00% of 806.8600sec)
+
+
+-------------------------------------------------------------------------------
+  -p[rocedures] using pc-sampling.
+  Sorted in descending order by the number of samples in each procedure.
+  Unexecuted procedures are excluded.
+-------------------------------------------------------------------------------
+
+samples   time(%)      cum time(%)      procedure (file)
+
+   6092    61s(  7.6)   61s(  7.6)     _dssetlock (libc.so.1:ulocks.c)
+   3913    39s(  4.8) 1e+02s( 12.4) ilMemCacheImg::getSubTile3D(int,int,int,int,int,int,void*,int,int,int,int,int,int,const ilConfig*) (libil.so:ilMemCacheImg.c++)
+   3555    36s(  4.4) 1.4e+02s( 16.8) ilPager::lock(ilPageRequest*,int&) (libil.so:ilPager.c++)
+   3119    31s(  3.9) 1.7e+02s( 20.7) ilTileIter::reset(void) (libil.so:ilTileIter.c++)
+   2170    22s(  2.7) 1.9e+02s( 23.4) ilSpinLock::set(int,int) (libil.so:ilSpinLock.c++)
+   2138    21s(  2.6) 2.1e+02s( 26.0) ilDispatcher::doRequest(void) (libil.so:ilDispatcher.c++)
+   2032    20s(  2.5) 2.3e+02s( 28.5) gradWeight::getFunctionalWgt(int,int*,int*) (glEat:gradWeight.c++)
+   1768    18s(  2.2) 2.5e+02s( 30.7) ilImage::clipTile(int&,int&,int&,int&,int&,int&,int) (libil.so:ilImage.c++)
+   1679    17s(  2.1) 2.6e+02s( 32.8)    __ll_rshift (libc.so.1:llshift.c)
+   1661    17s(  2.1) 2.8e+02s( 34.9) ilPager::rejuvenate(ilCachePage*,int,int,int) (libil.so:ilPager.c++)
+   1643    16s(  2.0) 3e+02s( 36.9)        memmove (libc.so.1:bcopy.s)
+   1520    15s(  1.9) 3.1e+02s( 38.8)       __malloc (libc.so.1:malloc.c)
+   1402    14s(  1.7) 3.3e+02s( 40.5) ilConvIter::reset(void) (libil.so:ilConvIter.c++)
+   1360    14s(  1.7) 3.4e+02s( 42.2)    _sunsetlock (libc.so.1:caslck.s)
+   1233    12s(  1.5) 3.5e+02s( 43.7) ilPager::unlock(ilPageRequest*) (libil.so:ilPager.c++)
+   1186    12s(  1.5) 3.6e+02s( 45.2)        _malloc (libc.so.1:malloc.c)
+   1166    12s(  1.4) 3.8e+02s( 46.6) ilSpinLock::unset(void) (libil.so:ilSpinLock.c++)
+   1137    11s(  1.4) 3.9e+02s( 48.1) ilLink::resetCheck(void) (libil.so:ilLink.c++)
+   1128    11s(  1.4) 4e+02s( 49.5) ilConverter::resetStrides(void) (libil.so:ilConverter.c++)
+   1040    10s(  1.3) 4.1e+02s( 50.7) ilTileIter::ilTileIter(const ilTile&,int,int,int,int,int,const ilConfig*,int) (libil.so:ilTileIter.c++)
+   1040    10s(  1.3) 4.2e+02s( 52.0) ilConverter::operator=(ilConverter&) (libil.so:ilConverter.c++)
+   1033    10s(  1.3) 4.3e+02s( 53.3) ilHashTable::find(unsigned int,const void*) (libil.so:ilHashTable.c++)
+   1022    10s(  1.3) 4.4e+02s( 54.6)          _free (libc.so.1:malloc.c)
+   1005    10s(  1.2) 4.5e+02s( 55.8) ilPixel::getElem(int) const (libil.so:ilPixel.c++)
+    979   9.8s(  1.2) 4.6e+02s( 57.0) ilTile::ilTile(const ilTile&,const ilTile&) (libil.so:../include/il/ilTileImpl.h)
+    962   9.6s(  1.2) 4.7e+02s( 58.2)      _ssetlock (libc.so.1:caslck.s)
+    957   9.6s(  1.2) 4.8e+02s( 59.4)          _scas (libc.so.1:caslck.s)
+    820   8.2s(  1.0) 4.9e+02s( 60.4) ilOpImg::getSubTile3D(int,int,int,int,int,int,void*,int,int,int,int,int,int,const ilConfig*) (libil.so:ilOpImg.c++)
+    763   7.6s(  0.9) 5e+02s( 61.4) ilIndexableList::unlink(ilLinkItem*) (libil.so:ilIndexableList.c++)
+    751   7.5s(  0.9) 5e+02s( 62.3) ilConverter::setTile(int,int,int,int,int,int) (libil.so:ilConverter.c++)
+    748   7.5s(  0.9) 5.1e+02s( 63.2) ilConfig::ilConfig(ilType,ilOrder,int,int*,int,ilCoordSpace,ilColorModel) (libil.so:ilConfig.c++)
+    734   7.3s(  0.9) 5.2e+02s( 64.1) ilDispatcher::ilDispatcher(int) (libil.so:ilDispatcher.c++)
+    728   7.3s(  0.9) 5.2e+02s( 65.0)         _Vsema (libc.so.1:usemas.c)
+    716   7.2s(  0.9) 5.3e+02s( 65.9) ilOpImg::hwEval(int) (libil.so:ilOpImg.c++)
+    699     7s(  0.9) 5.4e+02s( 66.8) ilConverter::ilConverter(void*,ilType,ilOrder,int,const int*,int,int,int,int,int,int,int) (libil.so:ilConverter.c++)
+    685   6.8s(  0.8) 5.5e+02s( 67.6) action::doAction(cellArray*,int*) (glEat:action.c++)
+    672   6.7s(  0.8) 5.5e+02s( 68.5)        t_splay (libc.so.1:malloc.c)
+    664   6.6s(  0.8) 5.6e+02s( 69.3) ilImage::getPixel3D(int,int,int,ilPixel&) (libil.so:ilImage.c++)
+    645   6.4s(  0.8) 5.7e+02s( 70.1) ilHwPass::prepare(const ilHwResult&) (libil.so:ilHwPass.c++)
+    632   6.3s(  0.8) 5.7e+02s( 70.9) cellArray::add(int*,double) (glEat:cellArray.c++)
+
+  80686 8.1e+02s(100.0) 8.1e+02s(100.0)          TOTAL

@@ -1,0 +1,226 @@
+old-src/old-scripts/corner.td ====================================
+67.0u 14.0s 1:44 77% 0+0k 92+27io 34pf+0w
+53.8u 14.5s 1:35 71% 0+0k 101+32io 7pf+0w
+old-src/old-scripts/corner.td results differ
+old-src/old-scripts/diamondCross.td ====================================
+177.8u 16.2s 6:11 52% 0+0k 88+16io 23pf+0w
+144.4u 14.4s 7:40 34% 0+0k 127+12io 34pf+0w
+old-src/old-scripts/dir.td ====================================
+41.2u 5.7s 2:24 32% 0+0k 74+12io 18pf+0w
+25.2u 5.7s 1:26 35% 0+0k 33+12io 10pf+0w
+old-src/old-scripts/dir.td results differ
+old-src/old-scripts/edge.td ====================================
+67.3u 15.1s 4:09 33% 0+0k 128+19io 35pf+0w
+48.2u 13.7s 3:06 33% 0+0k 122+16io 35pf+0w
+old-src/old-scripts/edge.td results differ
+old-src/old-scripts/foo.td ====================================
+76.8u 24.0s 1:59 84% 0+0k 40+40io 23pf+0w
+64.7u 17.1s 1:28 92% 0+0k 26+13io 12pf+0w
+old-src/old-scripts/foo.td results differ
+old-src/old-scripts/grad.td ====================================
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+ilBlurImg( *, 0, 5 )
+compass: min = -765, max = 765
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+ilBlurImg( *, 0, 5 )
+compass: min = -765, max = 765
+old-src/old-scripts/grad.td results differ
+old-src/old-scripts/grad-test.big.td ====================================
+open: min = 0, max = 4.29497e+09
+compass: min = -1.28849e+10, max = 1.28849e+10
+open: min = 0, max = 4.29497e+09
+compass: min = -1.28849e+10, max = 1.28849e+10
+old-src/old-scripts/grad-test.big.td results differ
+old-src/old-scripts/heather-image.td ====================================
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+293.6u 36.2s 6:06 90% 0+0k 8+14io 9pf+0w
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+157.7u 28.8s 3:16 95% 0+0k 6+13io 10pf+0w
+old-src/old-scripts/heather-image.td results differ
+old-src/old-scripts/image.td ====================================
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+39.4u 5.7s 0:48 93% 0+0k 6+14io 9pf+0w
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+22.5u 4.3s 0:31 85% 0+0k 5+14io 9pf+0w
+old-src/old-scripts/image.td results differ
+old-src/old-scripts/imageWgt.td ====================================
+open: min = 0, max = 4.29497e+09
+27.6u 4.9s 0:40 81% 0+0k 7+14io 11pf+0w
+open: min = 0, max = 4.29497e+09
+21.7u 4.1s 0:32 79% 0+0k 5+16io 9pf+0w
+old-src/old-scripts/imageWgt.2.td ====================================
+open: min = 0, max = 4.29497e+09
+30.1u 4.7s 0:37 92% 0+0k 5+14io 9pf+0w
+open: min = 0, max = 4.29497e+09
+22.6u 3.7s 0:28 91% 0+0k 5+14io 9pf+0w
+old-src/old-scripts/laura-ops.td ====================================
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+ilSharpenImg( *, 1, 1.5 )
+scale image by (1,1)
+min = 0, max = 255
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+ilSharpenImg( *, 1, 1.5 )
+scale image by (1,1)
+min = 0, max = 255
+old-src/old-scripts/melissa-image.td ====================================
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+288.1u 37.7s 5:48 93% 0+0k 7+15io 9pf+0w
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+156.9u 27.6s 3:13 95% 0+0k 5+14io 9pf+0w
+old-src/old-scripts/melissa-image.td results differ
+old-src/old-scripts/ring.td ====================================
+66.6u 4.7s 1:15 94% 0+0k 5+14io 9pf+0w
+62.7u 4.2s 1:09 95% 0+0k 5+14io 9pf+0w
+old-src/old-scripts/simple.td ====================================
+old-src/old-scripts/simple.td results differ
+old-src/old-scripts/splats.td ====================================
+19.9u 4.9s 0:28 88% 0+0k 16+17io 16pf+0w
+18.0u 4.4s 0:24 91% 0+0k 5+14io 9pf+0w
+old-src/old-scripts/splats.td results differ
+old-src/old-scripts/laura-image.td ====================================
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+578.9u 80.4s 11:28 95% 0+0k 15+14io 9pf+0w
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+296.8u 51.6s 6:08 94% 0+0k 17+225io 9pf+0w
+old-src/old-scripts/laura-image.td results differ
+old-src/old-scripts/lineCross.td ====================================
+44.7u 5.1s 0:53 93% 0+0k 5+13io 9pf+0w
+35.4u 4.0s 0:41 94% 0+0k 6+14io 9pf+0w
+old-src/old-scripts/prof.td ====================================
+15.2u 4.9s 0:22 91% 0+0k 6+14io 9pf+0w
+10.9u 3.9s 0:17 83% 0+0k 6+14io 9pf+0w
+old-src/old-scripts/prof.td results differ
+old-src/old-scripts/x-1.td ====================================
+185.7u 17.6s 3:33 95% 0+0k 8+17io 9pf+0w
+150.7u 16.2s 2:56 94% 0+0k 6+14io 9pf+0w
+old-src/old-scripts/x-1.td results differ
+old-src/gallery/swirl1.td ====================================
+15.7u 5.8s 0:26 82% 0+0k 105+16io 26pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+14.4u 3.9s 0:20 90% 0+0k 6+14io 9pf+0w
+old-src/gallery/swirl1.td results differ
+old-src/gallery/swirl2.td ====================================
+16.7u 5.6s 0:25 88% 0+0k 18+24io 10pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+16.0u 4.2s 0:23 87% 0+0k 4+14io 9pf+0w
+old-src/gallery/swirl2.td results differ
+old-src/gallery/swirl3.td ====================================
+1331.4u 152.6s 29:18 84% 0+0k 110+3925io 29pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+1344.5u 137.6s 27:17 90% 0+0k 204+748io 25pf+0w
+old-src/gallery/swirl3.td results differ
+old-src/gallery/swirl4.td ====================================
+1377.8u 152.7s 29:56 85% 0+0k 185+3797io 25pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+1433.0u 138.8s 28:42 91% 0+0k 211+661io 24pf+0w
+old-src/gallery/swirl4.td results differ
+old-src/gallery/colin-image.td ====================================
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+259.2u 34.7s 5:06 95% 0+0k 29+14io 11pf+0w
+open: min = 0, max = 4.29497e+09
+scale image by (1,1)
+min = 0, max = 4.29497e+09
+156.8u 29.0s 3:15 95% 0+0k 16+33io 9pf+0w
+old-src/gallery/colin-image.td results differ
+old-src/gallery/dir-swirl.td ====================================
+open: min = 0, max = 1
+open: min = 0, max = 1
+31.4u 5.6s 0:42 87% 0+0k 78+14io 14pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+22.6u 4.3s 0:30 89% 0+0k 8+16io 9pf+0w
+old-src/gallery/dir-swirl.td results differ
+old-src/gallery/laura-swirl.td ====================================
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+open: min = 0, max = 1
+open: min = 0, max = 1
+scale image by (1,1)
+min = 0, max = 255
+66.3u 5.9s 1:25 84% 0+0k 20+13io 16pf+0w
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+open: min = 0, max = 1
+open: min = 0, max = 1
+scale image by (1,1)
+min = 0, max = 255
+72.9u 5.6s 1:27 89% 0+0k 6+14io 9pf+0w
+old-src/test-scripts/bigCone.td ====================================
+158.6u 6.1s 2:50 96% 0+0k 5+14io 9pf+0w
+140.6u 4.6s 2:31 95% 0+0k 7+14io 9pf+0w
+old-src/test-scripts/bigCross.td ====================================
+296.3u 6.3s 5:13 96% 0+0k 7+14io 9pf+0w
+248.5u 5.3s 4:22 96% 0+0k 5+14io 9pf+0w
+old-src/test-scripts/bigRing.td ====================================
+66.2u 4.6s 1:14 95% 0+0k 7+14io 9pf+0w
+56.3u 3.4s 1:02 95% 0+0k 6+14io 9pf+0w
+old-src/test-scripts/bigbigRing.td ====================================
+121.2u 4.8s 2:11 96% 0+0k 7+14io 9pf+0w
+103.5u 3.8s 1:51 95% 0+0k 5+14io 9pf+0w
+old-src/test-scripts/cone.td ====================================
+36.5u 2.3s 0:41 93% 0+0k 6+14io 9pf+0w
+30.4u 2.1s 0:34 93% 0+0k 5+14io 9pf+0w
+old-src/test-scripts/laura-dir-swirl.td ====================================
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+open: min = 0, max = 1
+open: min = 0, max = 1
+scale image by (1,1)
+min = 0, max = 255
+33.4u 5.6s 0:41 93% 0+0k 7+14io 9pf+0w
+open: min = 0, max = 4.29497e+09
+invert: min = 0, max = 255
+thresh: min = 0, max = 255
+open: min = 0, max = 1
+open: min = 0, max = 1
+scale image by (1,1)
+min = 0, max = 255
+22.8u 5.0s 0:30 91% 0+0k 6+14io 9pf+0w
+old-src/test-scripts/laura-dir-swirl.td results differ
+old-src/test-scripts/grad.small.td ====================================
+286.7u 20.8s 6:09 83% 0+0k 61+921io 23pf+0w
+open: min = 0, max = 1
+open: min = 0, max = 1
+291.8u 16.0s 5:39 90% 0+0k 25+14io 9pf+0w
+old-src/test-scripts/grad.small.td results differ
+old-src/test-scripts/XCross.td ====================================
+47.5u 6.1s 0:57 93% 0+0k 5+14io 9pf+0w
+41.9u 4.1s 0:48 95% 0+0k 5+14io 9pf+0w
+old-src/test-scripts/dir.td ====================================
+31.0u 4.6s 0:37 94% 0+0k 5+14io 9pf+0w
+22.3u 3.3s 0:27 93% 0+0k 5+14io 9pf+0w
+old-src/test-scripts/dir.td results differ
+old-src/test-scripts/edge-edge.td ====================================
+14.7u 4.3s 0:20 93% 0+0k 5+14io 9pf+0w
+10.6u 3.3s 0:15 92% 0+0k 5+14io 9pf+0w

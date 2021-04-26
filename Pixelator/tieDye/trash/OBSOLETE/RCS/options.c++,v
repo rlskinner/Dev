@@ -1,0 +1,680 @@
+head	1.10;
+access;
+symbols;
+locks; strict;
+
+
+1.10
+date	93.12.25.02.34.04;	author robert;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	93.12.25.00.21.34;	author robert;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	93.12.15.00.32.33;	author robert;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	93.11.27.06.06.59;	author robert;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	93.02.12.14.03.02;	author robert;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	93.02.02.13.40.48;	author robert;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	93.02.01.13.25.30;	author robert;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	93.01.26.12.50.46;	author robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	93.01.14.13.02.48;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	93.01.07.12.09.31;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@options parsing and processing support code.
+@
+
+
+1.10
+log
+@restructure to make eat class contain all parsed info
+@
+text
+@#include	<stdio.h>
+#include	<stdlib.h>
+#include	<libc.h>
+#include	<unistd.h>
+#include	<string.h>
+#include	<fcntl.h>
+#include	<limits.h>
+
+#include	"eat.h"
+#include	"parseIF.h"
+
+//
+//  all of the seeds and actions we know about
+//
+#include	"edgeSeed.h"
+#include	"lineSeed.h"
+#include	"randomSeed.h"
+#include	"imageSeed.h"
+
+#include	"nborAction.h"
+#include	"edgeAction.h"
+#include	"cornerAction.h"
+#include	"ringAction.h"
+#include	"coneAction.h"
+#include	"crossAction.h"
+#include	"dirAction.h"
+
+
+
+void
+_setSize( int sx, int sy )
+{
+    eatApp->setSize( sx, sy );
+}
+
+
+void
+_setSizeAt( int sx, int sy, int px, int py )
+{
+    eatApp->setSize( sx, sy, px, py );
+}
+
+
+void
+_loadColormap( char *file )
+{
+	eatApp->loadColormap( file );
+}
+
+
+void
+_edgeSeed( weight *wgt )
+{
+	edgeSeed	*seed = new edgeSeed( wgt );
+	eatApp->addSeed( seed );
+}
+
+void
+_lineSeed( double x0, double y0, double x1, double y1, weight *wgt )
+{
+	lineSeed	*seed = new lineSeed( x0, y0, x1, y1, wgt );
+	eatApp->addSeed( seed );
+}
+
+
+void
+_randomIntSeed( int num, weight *wgt )
+{
+	randomSeed	*rs = new randomSeed( wgt, num );
+	eatApp->addSeed( rs );
+}
+
+void
+_randomPerCentSeed( double percent, weight *wgt )
+{
+}
+
+
+void
+_imageSeed( ilImage *img, int fit, double sx, double sy )
+{
+	imageSeed *is;
+	if( fit ) {
+		is = new imageSeed( img, 1 );
+	} else {
+		is = new imageSeed( img, sx, sy );
+	}
+	eatApp->addSeed( is );
+}
+
+void
+_nborAction( int connectedness, weight *wgt )
+{
+	nborAction	*act = new nborAction( wgt, connectedness );
+	eatApp->addAction( act );
+}
+
+void
+_edgeAction( weight *wgt )
+{
+	edgeAction	*act = new edgeAction( wgt );
+	eatApp->addAction( act );
+}
+
+void
+_dirAction( weight *primary, weight *wgt )
+{
+	dirAction	*act = new dirAction( primary, wgt );
+	eatApp->addAction( act );
+}
+
+void
+_cornerAction( weight *wgt )
+{
+	cornerAction	*act = new cornerAction( wgt );
+	eatApp->addAction( act );
+}
+
+void
+_ringAction( int radius, weight *wgt )
+{
+	ringAction	*act = new ringAction( wgt, radius );
+	eatApp->addAction( act );
+}
+
+void
+_scatterRingAction( int radius, weight *wgt )
+{
+}
+
+void
+_coneAction( int radius, weight *wgt )
+{
+	coneAction	*act = new coneAction( wgt, radius );
+	eatApp->addAction( act );
+}
+
+
+void
+_crossAction( int radius, weight *wgt )
+{
+	crossAction	*act = new crossAction( wgt, radius );
+	eatApp->addAction( act );
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//  image creation, construction, etc
+//
+ilImage*
+_openImageFile( char *filename )
+{
+	ilImage *img = ilOpenImgFile(filename,"r");	// no conversions here
+	ilPixel	min, max;
+	img->getMinPixel( min );
+	img->getMaxPixel( max );
+	int	i;
+	switch( min.type() ) {
+#define	CASE(iltype,minval,maxval)					\
+		case iltype:						\
+			for( i=0; i<min.nc(); i++ ) {			\
+				img->setMinValue( minval, i );		\
+				img->setMaxValue( maxval, i );		\
+			}						\
+			break						
+		CASE(ilBit,0,1);
+		CASE(ilUChar,0,UCHAR_MAX);
+		CASE(ilChar,SCHAR_MIN,SCHAR_MAX);
+		CASE(ilUShort,0,USHRT_MAX);
+		CASE(ilShort,SHRT_MIN,SHRT_MAX);
+		CASE(ilULong,0,ULONG_MAX);
+		CASE(ilLong,LONG_MIN,LONG_MAX);
+		CASE(ilFloat,0.0,1.0);
+		CASE(ilDouble,0.0,1.0);
+#undef	CASE
+	}
+	printf( "open: min = %g, max = %g\n", img->getMinValue(), img->getMaxValue() );
+	return img;
+}
+
+ilImage*
+_scaleImage( double s, ilImage *inImg )
+{
+	ilPixel	pix( ilDouble, 1, &s );
+	ilImage *outImg = new ilMultiplyImg( inImg, new ilConstImg( pix ) );
+	printf( "scale: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+	return outImg;
+}
+
+ilImage*
+_zoomImageToFit( ilImage *inImg )
+{
+	ilImage *outImg = new ilRotZoomImg( inImg ); 
+	eatApp->addZoomToFit( outImg );
+	return outImg;
+}
+
+ilImage*
+_zoomImage( double zx, double zy, ilImage *inImg )
+{
+	ilImage *outImg = new ilRotZoomImg( inImg, 0.0, zx, zy, ilNoFlip, ilBiLinear ); 
+	printf( "zoom: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+	return outImg;
+}
+
+
+
+//////////////////////////////////////////////////////////////////////
+//  image operators
+//
+
+ilImage*
+_invertImage( ilImage *inImg )
+{
+    ilImage *outImg = new ilInvertImg( inImg );
+    printf( "invert: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+    return outImg;
+}
+
+ilImage*
+_negImage( ilImage *inImg )
+{
+    ilImage *outImg = new ilNegImg( inImg );
+    printf( "neg: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+    return outImg;
+}
+
+ilImage*
+_sharpenImage( ilImage *inImg, double sh, double rad )
+{
+    ilImage *outImg;
+    if( sh == DEFAULT_VALUE ) {
+	outImg = new ilSharpenImg( inImg );
+	printf( "ilSharpenImg( * )\n" );
+    } else if( rad == DEFAULT_VALUE ) {
+        outImg = new ilSharpenImg( inImg, sh );
+	printf( "ilSharpenImg( *, %g )\n", sh );
+    } else {
+	outImg = new ilSharpenImg( inImg, sh, rad );
+	printf( "ilSharpenImg( *, %g, %g )\n", sh, rad );
+    }
+    return outImg;
+}
+
+ilImage*
+_threshImage( ilImage *inImg, double val )
+{
+    ilImage *outImg = new ilThreshImg( inImg, val );
+    printf( "thresh: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+    return outImg;
+}
+
+//////////////////////////////////////////////////////////////////////
+//  sophisticated weights
+//
+weight*
+_constWeight( double w )
+{
+	return new constWeight( w );
+}
+
+weight*
+_imageWeight( ilImage *img )
+{
+	return new imageWeight( img );
+}
+
+weight*
+_lastdirWeight( weight *dirWt, weight *offDirWt )
+{
+	abort();
+	return NULL;
+}
+
+
+
+
+
+@
+
+
+1.9
+log
+@separate parsing functions definition.
+process image chains sanely.
+@
+text
+@d9 1
+a9 1
+#include	"options.h"
+a27 1
+static	options	*ops;
+a28 1
+extern	"C"	void yyparse();
+a29 43
+options*
+parseOptions( int argc, char *argv[] )
+{
+	// find the file if possible
+	if( argc > 1 ) {
+		int	f = open( argv[1], 0 );
+		if( f >= 0 ) {
+			ops = new options;
+
+			int	si = dup( 0 );		// save stdin
+			dup2( f, 0 );			// make file stdin
+			yyparse();
+			close( 0 );
+			close( f );
+			dup2( si, 0 );			// restore old stdin
+			return ops;
+		} else {
+			fprintf( stderr, "error opening options file %s\n",
+				argv[1] );
+		}
+	}
+
+	ops = new options;
+	yyparse();
+	return ops;
+}
+
+
+
+options::options()
+{
+	dims = NULL;
+	seeds = NULL;
+	actions = NULL;
+
+	setPosition = 0;
+	loadCmap = 0;
+	cmapFilename = NULL;
+	writeFile = 0;
+	writeFilename = NULL;
+}
+
+
+d33 1
+a33 4
+	delete ops->dims;
+	ops->dims = new int[2];
+	ops->dims[0] = sx;
+	ops->dims[1] = sy;
+d40 1
+a40 8
+	delete ops->dims;
+	ops->dims = new int[2];
+	ops->dims[0] = sx;
+	ops->dims[1] = sy;
+
+	ops->setPosition = 1;
+	ops->wx = px;
+	ops->wy = py;
+a43 1
+
+d45 1
+a45 1
+_loadCmap( char *file )
+d47 1
+a47 2
+	ops->loadCmap = 1;
+	ops->cmapFilename = strdup( file );
+d55 1
+a55 1
+	ops->addSeed( seed );
+d62 1
+a62 1
+	ops->addSeed( seed );
+d70 1
+a70 1
+	ops->addSeed( rs );
+d88 1
+a88 1
+	ops->addSeed( is );
+d95 1
+a95 1
+	ops->addAction( act );
+d102 1
+a102 1
+	ops->addAction( act );
+d109 1
+a109 1
+	ops->addAction( act );
+d116 1
+a116 1
+	ops->addAction( act );
+d123 1
+a123 1
+	ops->addAction( act );
+d135 1
+a135 1
+	ops->addAction( act );
+d143 1
+a143 1
+	ops->addAction( act );
+d193 2
+a194 4
+	printf( "where can I be assured of getting the size?\n" );
+	exit( -1 );
+	ilImage *outImg = NULL;
+	printf( "zoom: min = %g, max = %g\n", outImg->getMinValue(), outImg->getMaxValue() );
+@
+
+
+1.8
+log
+@implement image scaling and negImage
+@
+text
+@d7 1
+d10 1
+a11 11
+#include        <il/ilImage.h>
+#include        <il/ilGenericImgFile.h>
+#include        <il/ilNegImg.h>
+#include        <il/ilRotZoomImg.h>
+#include        <il/ilMultiplyImg.h>
+#include        <il/ilConstImg.h>
+
+#include	"weight.h"
+#include	"constWeight.h"
+#include	"imageWeight.h"
+
+a73 1
+extern	"C" {
+d137 1
+a137 1
+_imageSeed( char *file, int fit, double sx, double sy )
+d141 1
+a141 1
+		is = new imageSeed( file, 1 );
+d143 1
+a143 1
+		is = new imageSeed( file, sx, sy );
+d210 26
+a235 1
+	return ilOpenImgFile(filename,"r");	// no conversions here
+d239 1
+a239 1
+_scaleImage( double s, ilImage *img )
+d242 3
+a244 1
+	return new ilMultiplyImg( img, new ilConstImg( pix ) );
+d248 1
+a248 1
+_zoomImageToFit( ilImage *img )
+d252 3
+a254 1
+	return NULL;
+d258 1
+a258 1
+_zoomImage( double zx, double zy, ilImage *img )
+d260 3
+a262 1
+	return new ilRotZoomImg( img, 0.0, zx, zy, ilNoFlip, ilBiLinear ); 
+d272 34
+a305 1
+_negImage( ilImage *img )
+d307 3
+a309 1
+    return new ilNegImg( img );
+a337 1
+}	/* extern C */
+@
+
+
+1.7
+log
+@update for 3.1 compilers
+@
+text
+@d12 1
+d14 2
+d226 2
+a227 4
+	fprintf( stderr, "image value scaling not implemented\n" );
+	fflush( stderr );
+	exit( -1 );
+	return NULL;
+d245 10
+@
+
+
+1.6
+log
+@add support for images and the weight class
+@
+text
+@d226 1
+d234 1
+d264 1
+@
+
+
+1.5
+log
+@add rudimentary image seed 
+@
+text
+@d10 8
+a31 1
+#include	"newEdgeAction.h"
+d116 1
+a116 1
+_edgeSeed( double wgt )
+d123 1
+a123 1
+_lineSeed( double x0, double y0, double x1, double y1, double wgt )
+d131 1
+a131 1
+_randomIntSeed( int num, double wgt )
+d138 1
+a138 1
+_randomPerCentSeed( double percent, double wgt )
+d156 1
+a156 1
+_nborAction( int connectedness, double wgt )
+d163 1
+a163 1
+_edgeAction( double wgt )
+d170 1
+a170 1
+_newEdgeAction( double wg, double wgt )
+d172 1
+a172 1
+	newEdgeAction	*act = new newEdgeAction( wg, wgt );
+d177 1
+a177 1
+_dirAction( double ratio, double wgt )
+a178 7
+	dirAction	*act = new dirAction( ratio, wgt );
+	ops->addAction( act );
+}
+
+void
+_cornerAction( double wgt )
+{
+d184 1
+a184 1
+_ringAction( int radius, double wgt )
+d191 1
+a191 1
+_scatterRingAction( int radius, double wgt )
+d196 1
+a196 1
+_coneAction( int radius, double wgt )
+d204 1
+a204 1
+_crossAction( int radius, double wgt )
+d209 56
+@
+
+
+1.4
+log
+@specify colormap file and window position.
+@
+text
+@d16 1
+d135 12
+@
+
+
+1.3
+log
+@added lineSeed, cornerAction, ringAction, coneAction, crossAction,
+newEdgeAction, dirAction
+@
+text
+@d5 1
+d59 13
+d77 1
+d83 22
+@
+
+
+1.2
+log
+@add edgeAction
+@
+text
+@d13 1
+d18 6
+d73 2
+a74 2
+	edgeSeed	*e = new edgeSeed( wgt );
+	ops->addSeed( e );
+d77 6
+d84 1
+d101 2
+a102 2
+	nborAction	*nb = new nborAction( wgt, connectedness );
+	ops->addAction( nb );
+d108 2
+a109 2
+	edgeAction	*ea = new edgeAction( wgt );
+	ops->addAction( ea );
+d113 14
+d129 2
+d136 2
+d148 10
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d16 1
+d94 2
+@

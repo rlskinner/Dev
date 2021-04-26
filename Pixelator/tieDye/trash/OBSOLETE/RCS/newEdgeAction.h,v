@@ -1,0 +1,61 @@
+head	1.2;
+access;
+symbols;
+locks
+	robert:1.2; strict;
+comment	@ * @;
+
+
+1.2
+date	93.12.28.00.55.58;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	93.01.26.12.42.29;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@same as nbor8, but weight increases arithmetically.
+@
+
+
+1.2
+log
+@generalize action class to precompute affected neighbors and weights
+@
+text
+@#ifndef	_newEdgeAction_
+#define	_newEdgeAction_
+
+#include	<stdio.h>
+
+#include	"action.h"
+
+class	newEdgeAction : public action {
+protected:
+	double	wtGain;
+
+	virtual	void	makeNbors();
+
+public:
+	newEdgeAction( double wg, double wgt = 1.0 ) 
+		: action( wgt )
+		{ wtGain = wg; }
+
+	virtual void	doAction( cellArray *cells, int index[] );
+};
+	
+#endif	/* _newEdgeAction_ */
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d12 2
+@

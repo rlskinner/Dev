@@ -1,0 +1,60 @@
+MAJOR FEATURES:
+* set colormap range from options
+	- weight mask
+* need weight classes which vary as
+	- functions of time, linear, exponential, oscillating, etc.
+* actions that set >1 position
+* weights would be more efficient if they used a getTile interface
+* I should be able to combine weights, instead of just images -> So 
+  if they were subclasses of ilImage?
+* purely functional weights, as in hoc.
+* variables and execution scopes
+* fully customize the current ad hoc behaviors:
+  ACTION:	action ACTION_OPTIONS ......
+  ACTION_OPTIONS:	[ STATE , FUNCTION , WEIGHTS ]
+  STATE:	  ANY		# can be any state but set [empty|waiting]
+		| EMPTY		# only empty states
+		| WAITING	# only waiting states
+  FUNCTION:	  ADD		# new weights are accumulated 
+		| SET		# new weights override old weights
+    (need an option for what to do with weights < 0:
+	if empty ignore
+	if waiting can set to DBL_MIN, or remove from list
+    )
+  WEIGHTS:	  ALL
+		| MAX
+		| MIN
+		| POSITIVE
+		| NEGATIVE
+
+* weight inhibitors, as an option to cell specification
+
+* make cell array (optionally) toroidal
+	
+* The seed use of images is twisted, since each seed has a weight, which
+  itself can be an image, and all the scaling and fitting operations
+  are already done on images.  So it could be as simple as 'seed
+  all WEIGHT', and WEIGHT could be a constant, function or image.
+
+* automatically decompress input images.
+
+* provide a channel-select operator, so gradient information can be
+  stored as a 2-channel image.
+
+* pattern images
+   *  check(N).  A checkerboard, where 2 gives the usual, 4 give 1 out
+      of a 2x2, 16 gives 1 out of 4x4?
+
+* masking operator
+
+* seeds:
+	point-list 
+
+DAY-TO-DAY STUFF:
+* optimize
+   * instrument cellArray and randArray for information about max size
+     shape, etc.
+   * turn off heap updates for large additions?
+* clean up input grammar
+* set input file from command line, and set title from filename
+

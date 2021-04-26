@@ -1,0 +1,85 @@
+snap.rgb -x
+
+real        2.71
+user        1.07
+sys         0.18
+
+snap.rgb -y
+
+real        2.60
+user        1.00
+sys         0.20
+
+snap.rgb -r
+
+real        2.66
+user        1.05
+sys         0.15
+
+(2X x 2X)
+/tmp/img -x
+
+real        8.51
+user        4.09
+sys         0.30
+
+/tmp/img -y
+
+real        8.39
+user        4.09
+sys         0.22
+
+/tmp/img -r
+
+real        8.77
+user        4.14
+sys         0.24
+
+15.590u 1.920s 0:35.29 49.6% 0+0k 15+24io 15pf+0w
+rls:texas 845 > izoom snap.rgb /tmp/img4 4 4
+rls:texas 846 > izoom snap.rgb /tmp/img8 8 8
+rls:texas 847 > timeImgRead /tmp/img[48]
+/tmp/img4 -x
+ring
+
+real       34.61
+user       15.59
+sys         1.20
+
+15.5u 1.2s 0:34 48%
+/tmp/img4 -y
+
+real       34.46
+user       15.71
+sys         0.42
+
+15.7u 0.5s 0:34 46%
+/tmp/img4 -r
+
+real       35.96
+user       16.58
+sys         0.29
+
+16.5u 0.3s 0:36 46%
+/tmp/img8 -x
+
+real     2:13.10
+user     1:04.11
+sys         1.82
+
+64.1u 1.8s 2:13 49%
+/tmp/img8 -y
+
+real    19:32.80
+user     7:36.08
+sys      2:22.28
+
+456.0u 142.3s 19:32 51%
+/tmp/img8 -r
+Command terminated abnormally.	 (about 25% done)
+
+real    57:51.03
+user    21:07.27
+sys      7:02.08
+
+1267.2u 422.1s 57:51 48%

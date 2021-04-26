@@ -1,0 +1,30 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.1
+date	94.01.22.08.02.09;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@barfo
+@
+
+
+1.1
+log
+@block actions, first pass
+@
+text
+@main()
+{
+	char	sys[1024];
+	sprintf( sys, "loadmap %s\0", "data/rainbow.map" );
+	system( sys );
+}
+@

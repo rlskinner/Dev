@@ -1,0 +1,7 @@
+setenv ROOT 
+unsetenv TOOLROOT 
+setenv WORKAREA /usr/people/robert/fun/tieDye/IL.3.0
+setenv	MANPATH $_MANPATH 
+set path = ( $defaultPath ) 
+
+		 

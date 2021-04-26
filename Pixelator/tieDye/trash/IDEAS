@@ -1,0 +1,14 @@
+*  Using Laura text and searching for max/minima, looks pretty bad.  
+   Try combining the text image with a background that changes
+   gradually from top to bottom.  Add a low-to-medium priority seed at
+   top, and it will "drip" down over the text.
+
+*  I think I can get real flow tracing if:  I can seed with a disk of 
+   constant weight, then use the ring action and select max or
+   positive weights.  If selecting the max, then I should get a single
+   line.  Positive weights should smear the entire disk.  If the ring
+   diameter is > the disk diameter, then I will get a dotted line.
+
+*  Apply Dir actions to the swirl flow images separately.  Have one
+   dir with a flow that goes in +x, the other in y.  May have to do
+   some trickery to compensate for negative flow values.

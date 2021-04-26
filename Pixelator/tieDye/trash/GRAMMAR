@@ -1,0 +1,61 @@
+The grammary recognized by tieDye programs:
+
+INT == integer
+REAL == real number
+STR == quoted string
+
+COMMAND:	OPTION
+		SEED
+		ACTION
+
+OPTION:		size INT [INT [AT INT INT] ]
+		colormap STR		
+		write STR [fit | sgi]
+
+SEED:		seed edge WEIGHT			
+		seed line real real real real WEIGHT	
+		seed disk INT INT INT WEIGHT
+		seed random INT WEIGHT		
+		seed random real PERCENT WEIGHT	
+		seed image IMAGE 			#  this needs some work
+		seed image IMAGE scale real [real]	# why not seed WEIGHT?
+		seed image IMAGE scale tofit		
+
+ACTION:		action [ ACTIONOPS ] nbor4 WEIGHT		
+		action [ ACTIONOPS ] nbor8 WEIGHT		
+		action [ ACTIONOPS ] edge WEIGHT			
+		action [ ACTIONOPS ] dir WEIGHT WEIGHT	# primary, secondary
+		action [ ACTIONOPS ] corner WEIGHT			
+		action [ ACTIONOPS ] ring INT WEIGHT		
+		action [ ACTIONOPS ] scatterRing INT WEIGHT	
+		action [ ACTIONOPS ] cone INT WEIGHT		
+		action [ ACTIONOPS ] cross INT WEIGHT		
+
+ACTIONOPS:	( ACTION_STATE , ACTION_FUNCTION , ACTION_WEIGHTS ) # (any order)
+
+ACTION_STATE:	any | empty | waiting | NULL		# any == empty | waiting		
+ACTION_FUNCTION:	set | add | NULL
+
+ACTION_WEIGHTS:	all | max | min | positive | negative | NULL
+
+IMAGE:		STR				
+		real 					# constant image
+		blur ( IMAGE [, real [, real]] )	# blur value, radius
+		compass ( IMAGE , real )		# compass direction N=0
+		scale ( IMAGE , real )			# multiplies image
+		tofit ( IMAGE )				# zoom image to fit size
+		zoom ( IMAGE , real , real )		# X & Y scales
+		invert ( IMAGE )
+		neg ( IMAGE )
+		roberts ( IMAGE [, real] )		# kernel size
+		sharpen ( IMAGE [, real [, real]] )	# sharpen value, radius
+		thresh ( IMAGE , real )
+
+WEIGHT:		IMAGE 
+		grad ( WEIGHT , WEIGHT )
+		lastdir ( WEIGHT , WEIGHT )
+
+
+TODO:
+		size image		# set size from image
+		title STR		# set window title

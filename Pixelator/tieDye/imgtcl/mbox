@@ -1,0 +1,108 @@
+From - Wed Jan 10 17:11:19 1996
+Path: fido.asd.sgi.com!owl!walker
+From: walker@owl.asd.sgi.com (Christopher Walker)
+Newsgroups: sgi.engr.il
+Subject: Re: Tcl bindings for ImageVision
+Date: 9 Jan 1996 19:45:47 GMT
+Organization: Silicon Graphics, Inc.  Mountain View, CA
+Lines: 96
+Message-ID: <4cuglb$c9h@fido.asd.sgi.com>
+References: <30F1BCCD.59E2@sgi.com> <4csgtt$c9h@fido.asd.sgi.com> <30F2B3A3.3F54@sgi.com>
+NNTP-Posting-Host: owl.asd.sgi.com
+
+
+In article <30F2B3A3.3F54@sgi.com>, Robert Skinner <robert@sgi.com> writes:
+> Christopher Walker wrote:
+> > 
+> > In article <30F1BCCD.59E2@sgi.com>, Robert Skinner <robert@sgi.com> writes:
+> > > I heard that IL 3.0 would have tcl bindings so we could build our own
+> > > image composition scripts.  I see what looks like the beginnings of such
+> > > a feature in imgtools.sw.tools.
+> > 
+> > I assume you're talking about the inst images on samurai.asd?
+> 
+> Yeah
+> 
+> > Actually it's quite functional, all of our test suites are run with imgtcl.
+> 
+> Well, I just happened to notice that there were files that had 'tcl' in
+> them, so I did:
+> 
+> 	% versions list imgtools | grep tcl
+> 	/usr/sgitcl/lib/libimgtcl.so
+> 	/usr/sgitcl/lib/system.imgtclrc
+> 	/usr/sbin/imgtcl
+> 
+> which is not exhaustive, I know.  The two files in /usr/sgitcl/lib
+> looked functional, but /usr/sbin/imgtcl is a dangling link to
+> .../sgitcl/bin/sgitcl.
+> 
+> > 
+> > > What's the status of this feature?
+> > 
+> > Basically done.  Waiting to be documented.  The bad news is it doesn't look
+> > like we will ship the new imgtools with IL 3.0 (in March).  They will have
+> > to wait till we have time to finish them.  Meanwhile you can certainly
+> > use it for internal projects.
+> 
+> good enough.  where can I find your test suites or other examples of how
+> to use imgtcl.
+
+On our source tree:
+
+	il.asd:/d/il/isms/il/src/tests/
+
+Also, here's a short example that makes a background sized image from
+an input image:
+
+------- imgbg -------
+#!/usr/sbin/imgtcl
+
+# check arguments
+
+if {$argc != 2} {
+    puts "Usage: imgbg <input-file> <output-file>"
+    exit 1
+}
+
+# open the input image
+
+ilFileImgOpen infile [lindex $argv 0]
+
+# compute the zoom factor needed to fill a 1280x1024 output
+
+new iflSize size {1} 
+infile getSize size
+set xzoom [expr 1280./[$size 0 x]]
+set yzoom [expr 1024./[$size 0 y]]
+set zoomfactor [expr $xzoom > $yzoom? $xzoom : $yzoom]
+
+# create a zoomed version of the image 1280x1024, use bi-linear resampling
+
+ilRotZoomImg zoom infile 0 $zoomfactor $zoomfactor iflNoFlip ilBiCubic
+zoom setXYsize 1280 1024
+
+# save it in the ouput file
+
+ilFileImgCreate outfile [lindex $argv 1] zoom 
+ilSetDither ilFSDither
+outfile copy zoom
+outfile delete
+-------
+
+Basically, it's like C++ without the punctuation:
+
+<class-name> <obj-name> <ctor-args>
+
+will create an command named <obj-name> of type <class-name> using the
+<ctor-args> to pass to the constructor.
+
+Then you can use the <obj-name> command to call methods on the object:
+
+<obj-name> <method-name> <method-args>
+
+Overloaded names are handled using the external (C) api names extracted from the
+IL header files.
+
+---
+Chris Walker (walker@asd.sgi.com)

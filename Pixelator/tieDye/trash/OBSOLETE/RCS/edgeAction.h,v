@@ -1,0 +1,74 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.3
+date	93.12.28.00.55.58;	author robert;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	93.02.12.14.01.33;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	93.01.14.13.02.02;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@increase weight of neighbors sharing an edge with this cell
+@
+
+
+1.3
+log
+@generalize action class to precompute affected neighbors and weights
+@
+text
+@#ifndef	_edgeAction_
+#define	_edgeAction_
+
+#include	<stdio.h>
+
+#include	"action.h"
+
+class	edgeAction : public action {
+protected:
+	virtual	void	makeNbors();
+public:
+	edgeAction( weight *wgt ) 
+		: action( wgt )
+		{}
+
+};
+	
+#endif	/* _edgeAction_ */
+@
+
+
+1.2
+log
+@interface with the weight class to provide arbitrary weighting functions.
+@
+text
+@d9 2
+a15 1
+	virtual void	doAction( cellArray *cells, int index[] );
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d10 1
+a10 1
+	edgeAction( double wgt = 1.0 ) 
+@

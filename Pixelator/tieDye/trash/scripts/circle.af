@@ -1,0 +1,19 @@
+First_Out := (float)First_In;
+Second_Out := (float)First_In;
+
+int	nx = shape(First_Out)[0];
+int	ny = shape(First_Out)[1];
+
+int	midx = nx/2;
+int	midy = ny/2;
+
+int i;
+int j;
+for( j=0; j<ny; j += 1 ) {
+    First_Out[j] = (float)(midy-j)/((float)midy-1.0);
+    for( i=0; i<ny; i += 1 ) {
+        Second_Out[j][i] = (float)(i-midx)/((float)midx-1.0);
+    }
+}
+
+

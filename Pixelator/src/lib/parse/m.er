@@ -1,0 +1,96 @@
+--- default ---
+--- parse.o ---
+	/usr/bin/CC            -I/usr/include/il -I../util -I../enum   -nostdinc -I//usr/include/CC -I//usr/include -mips3 -n32 -g  -MDupdate Makedepend -c parse.c++
+"parse.c++", line 33: error(1020): identifier "eatApp" is undefined
+      eatApp->setSize( sx, sy );
+      ^
+
+"parse.c++", line 40: error(1020): identifier "eatApp" is undefined
+      eatApp->setSize( sx, sy, px, py );
+      ^
+
+"parse.c++", line 47: error(1020): identifier "eatApp" is undefined
+  	eatApp->loadColormap( file );
+  	^
+
+"parse.c++", line 54: error(1020): identifier "eatApp" is undefined
+      eatApp->setWriteImage( file, (char *)&type );
+      ^
+
+"parse.c++", line 60: error(1020): identifier "eatApp" is undefined
+      eatApp->setExit();
+      ^
+
+"parse.c++", line 68: error(1020): identifier "eatApp" is undefined
+  	eatApp->addSeed( seed );
+  	^
+
+"parse.c++", line 75: error(1020): identifier "eatApp" is undefined
+  	eatApp->addSeed( seed );
+  	^
+
+"parse.c++", line 83: error(1020): identifier "eatApp" is undefined
+  	eatApp->addSeed( seed );
+  	^
+
+"parse.c++", line 91: error(1020): identifier "eatApp" is undefined
+  	eatApp->addSeed( rs );
+  	^
+
+"parse.c++", line 109: error(1020): identifier "eatApp" is undefined
+  	eatApp->addSeed( is );
+  	^
+
+"parse.c++", line 182: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 190: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 198: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 207: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 216: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 230: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 239: error(1020): identifier "eatApp" is undefined
+  	eatApp->addAction( act );
+  	^
+
+"parse.c++", line 256: error(1079): expected a type specifier
+  	return new imageWeight( img );
+  	           ^
+
+"parse.c++", line 262: error(1079): expected a type specifier
+      return new contourWeight( contour, scale, dropoff );
+                 ^
+
+"parse.c++", line 262: error(1018): expected a ")"
+      return new contourWeight( contour, scale, dropoff );
+                                       ^
+
+"parse.c++", line 268: error(1079): expected a type specifier
+      return new gradWeight( delx, dely );
+                 ^
+
+"parse.c++", line 268: error(1018): expected a ")"
+      return new gradWeight( delx, dely );
+                                 ^
+
+22 errors detected in the compilation of "parse.c++".
+*** Error code 2
+smake: Error: 1 error
+*** Error code 2
+smake: Error: 1 error

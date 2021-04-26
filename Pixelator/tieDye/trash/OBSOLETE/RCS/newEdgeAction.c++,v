@@ -1,0 +1,107 @@
+head	1.2;
+access;
+symbols;
+locks
+	robert:1.2; strict;
+
+
+1.2
+date	93.12.28.00.55.58;	author robert;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	93.01.26.12.40.43;	author robert;	state Exp;
+branches;
+next	;
+
+
+desc
+@same as nbor8, but weight increases arithmetically.
+@
+
+
+1.2
+log
+@generalize action class to precompute affected neighbors and weights
+@
+text
+@//
+//   eat an image away based on different rules, and different seed points
+//
+
+#include	"newEdgeAction.h"
+
+
+void
+newEdgeAction::makeNbors()
+{
+}
+
+void
+newEdgeAction::doAction( cellArray *cells, int index[] )
+{
+	//
+	//  every neighbor sharing an newEdge now gets greater weight
+	//
+	cellState       s;
+	int             d;
+
+	int	newEdge[2];
+	newEdge[0] = index[0]-1;	newEdge[1] = index[1];
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0]+1;	newEdge[1] = index[1];
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0];	newEdge[1] = index[1]-1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0];	newEdge[1] = index[1]+1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+
+	newEdge[0] = index[0]-1;	newEdge[1] = index[1]-1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0]+1;	newEdge[1] = index[1]+1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0]+1;	newEdge[1] = index[1]-1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+	newEdge[0] = index[0]-1;	newEdge[1] = index[1]+1;
+		cells->getState( newEdge, s, d );
+			if( s == csEmpty ) {
+				cells->add( newEdge, weight );
+			}
+
+	weight += wtGain;
+}
+
+
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d9 5
+@

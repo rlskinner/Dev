@@ -1,0 +1,14 @@
+sizeof(Index) == 8
+0.0 s	: seed LineSeed
+0.0 s	: seed LineSeed
+0.0 s	: seed EdgeSeed
+0.1 s	: seed DiskSeed
+0.5 s	: action NborAction
+0.9 s	: action NborAction
+2.7 s	: action ConeAction
+0.3 s	: action CornerAction
+1.2 s	: action CrossAction
+1.2 s	: action DirAction
+2.2 s	: action RingAction
+------------------------------
+9.1 s	: total time

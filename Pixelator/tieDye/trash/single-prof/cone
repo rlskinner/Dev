@@ -1,0 +1,61 @@
+-------------------------------------------------------------------------------
+Profile listing generated Thu Jan 13 12:58:07 1994
+    with:	prof glEat mon.out 
+-------------------------------------------------------------------------------
+
+samples   time    CPU    FPU   Clock   N-cpu  S-interval Countsize
+   3825    38s R2000A/R3000 R2010A/R3010  33.0MHz   1     10.0ms     2(bytes)
+
+Each sample covers 4 bytes for every 10.0ms ( 0.03% of 38.2500sec)
+
+
+-------------------------------------------------------------------------------
+  -p[rocedures] using pc-sampling.
+  Sorted in descending order by the number of samples in each procedure.
+  Unexecuted procedures are excluded.
+-------------------------------------------------------------------------------
+
+samples   time(%)      cum time(%)      procedure (file)
+
+   1897    19s( 49.6)   19s( 49.6) randArray::incUpdate(int) (glEat:cellArray.c++)
+    464   4.6s( 12.1)   24s( 61.7) action::doAction(cellArray*,int*) (glEat:action.c++)
+    355   3.5s(  9.3)   27s( 71.0) cellArray::offset(int*) (glEat:cellArray.c++)
+    351   3.5s(  9.2)   31s( 80.2) cellArray::add(int*,double) (glEat:cellArray.c++)
+    196     2s(  5.1)   33s( 85.3) randArray::add(int,double) (glEat:cellArray.c++)
+    139   1.4s(  3.6)   34s( 88.9) randArray::setWt(int,double) (glEat:cellArray.c++)
+    120   1.2s(  3.1)   35s( 92.1)         _ioctl (libc.so.1:ioctl.s)
+     67  0.67s(  1.8)   36s( 93.8) randArray::pick(int*) (glEat:cellArray.c++)
+     27  0.27s(  0.7)   36s( 94.5) gl_fast_qcheck (libgl.so:../glws/ws_input.c)
+     20   0.2s(  0.5)   36s( 95.1) cellArray::getState(int*,cellState&,int&) (glEat:cellArray.c++)
+     19  0.19s(  0.5)   37s( 95.6)     gl_g_qtest (libgl.so:../glws/mex_queue.c)
+     16  0.16s(  0.4)   37s( 96.0)         _bcopy (libc.so.1:bcopy.s)
+     15  0.15s(  0.4)   37s( 96.4) gl_initializer (libgl.so:../dgl/initialize.c)
+     15  0.15s(  0.4)   37s( 96.8)      __GLqtest (libgl.so:./STAPUFTIP7GT.D/gl_if.s)
+     13  0.13s(  0.3)   37s( 97.1) randArray::add(int*,double) (glEat:cellArray.c++)
+     12  0.12s(  0.3)   37s( 97.4) glEat::processEvent(int) (glEat:glEat.c++)
+     12  0.12s(  0.3)   37s( 97.7) eat::doActions(void) (glEat:eat.c++)
+     11  0.11s(  0.3)   37s( 98.0) cellArray::set(int*) (glEat:cellArray.c++)
+      7  0.07s(  0.2)   38s( 98.2)     gl_i_color (libgl.so:../graphics/attrib.c)
+      7  0.07s(  0.2)   38s( 98.4)        _random (libc.so.1:random.c)
+      7  0.07s(  0.2)   38s( 98.6) randArray::clearWt(int) (glEat:cellArray.c++)
+      6  0.06s(  0.2)   38s( 98.7) glCellArray::print(void) (glEat:glCellArray.c++)
+      6  0.06s(  0.2)   38s( 98.9)      _GLinitgl (libgl.so:../glws/wininit.c)
+      5  0.05s(  0.1)   38s( 99.0) cellArray::pick(int*) (glEat:cellArray.c++)
+      4  0.04s(  0.1)   38s( 99.1) glCellArray::set(int*) (glEat:glCellArray.c++)
+      4  0.04s(  0.1)   38s( 99.2)        memmove (libc.so.1:bcopy.s)
+      3  0.03s(  0.1)   38s( 99.3)        _select (libc.so.1:select.s)
+      2  0.02s(  0.1)   38s( 99.3) cellArray::numWaiting(void) (glEat:cellArray.c++)
+      2  0.02s(  0.1)   38s( 99.4)          _read (libc.so.1:read.s)
+      2  0.02s(  0.1)   38s( 99.5)      __GLcolor (libgl.so:./STAPUFTIP7GT.D/gl_if.s)
+      2  0.02s(  0.1)   38s( 99.5)          _fork (libc.so.1:fork.s)
+      1  0.01s(  0.0)   38s( 99.5)      __GLpnt2i (libgl.so:./STAPUFTIP7GT.D/gl_if.s)
+      1  0.01s(  0.0)   38s( 99.6)        yyparse (glEat:gmr.y)
+      1  0.01s(  0.0)   38s( 99.6) cellArray::cellArray(int,int*) (glEat:cellArray.c++)
+      1  0.01s(  0.0)   38s( 99.6)         strcat (libc.so.1:strcat.s)
+      1  0.01s(  0.0)   38s( 99.6)    GetDatabase (libX11.so.1:Xrm.c)
+      1  0.01s(  0.0)   38s( 99.7) XkbSelectEventDetails (libX11.so.1:XKB.c)
+      1  0.01s(  0.0)   38s( 99.7)        _malloc (libc.so.1:malloc.c)
+      1  0.01s(  0.0)   38s( 99.7)       __malloc (libc.so.1:malloc.c)
+      1  0.01s(  0.0)   38s( 99.7) _GLSetButtonState (libgl.so:../glws/mex_queue.c)
+
+   3825    38s(100.0)   38s(100.0)          TOTAL

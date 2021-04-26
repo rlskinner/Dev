@@ -1,0 +1,35 @@
+./test-scripts/bigCone.td
+./test-scripts/bigCross.td
+./test-scripts/bigRing.td
+./test-scripts/bigbigRing.td
+./test-scripts/cone.td
+./test-scripts/laura-dir-swirl.td	# core dump
+./test-scripts/grad.small.td	# core dump
+./test-scripts/XCross.td
+./old-scripts/corner.td
+./old-scripts/diamondCross.td		# core dump
+./old-scripts/dir.td
+./old-scripts/edge.td
+./old-scripts/foo.td
+./old-scripts/grad.td
+./old-scripts/grad-test.big.td
+./old-scripts/heather-image.td
+./old-scripts/image.td
+./old-scripts/imageWgt.td
+./old-scripts/imageWgt.2.td
+./old-scripts/laura-ops.td
+./old-scripts/melissa-image.td
+./old-scripts/ring.td
+./old-scripts/simple.td
+./old-scripts/splats.td
+./old-scripts/laura-image.td
+./old-scripts/lineCross.td
+./old-scripts/prof.td
+./old-scripts/x-1.td
+./gallery/swirl1.td
+./gallery/swirl2.td
+./gallery/swirl3.td
+./gallery/swirl4.td
+./gallery/colin-image.td
+./gallery/dir-swirl.td
+./gallery/laura-swirl.td

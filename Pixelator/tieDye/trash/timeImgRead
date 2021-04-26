@@ -1,0 +1,9 @@
+#!/bin/csh
+
+foreach f ( $* )
+	foreach o ( -x -y -r )
+		echo $f "$o" 
+		timex imgRead $o $f 
+	end
+end
+		

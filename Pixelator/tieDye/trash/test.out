@@ -1,0 +1,436 @@
+old-src/old-scripts/corner.td ====================================
+
+real        4.89
+user        4.91
+sys         0.34
+
+
+real        4.76
+user        4.90
+sys         0.32
+
+old-src/old-scripts/diamondCross.td ====================================
+
+real        5.01
+user        5.34
+sys         0.32
+
+
+real        4.87
+user        5.28
+sys         0.31
+
+old-src/old-scripts/diamondCross.td results differ
+old-src/old-scripts/dir.td ====================================
+
+real        4.75
+user        5.11
+sys         0.31
+
+
+real        4.80
+user        5.16
+sys         0.32
+
+old-src/old-scripts/dir.td results differ
+old-src/old-scripts/edge.td ====================================
+
+real        4.52
+user        4.87
+sys         0.30
+
+
+real        4.49
+user        4.81
+sys         0.29
+
+old-src/old-scripts/foo.td ====================================
+
+real        3.14
+user        2.33
+sys         0.36
+
+
+real        2.56
+user        2.31
+sys         0.34
+
+old-src/old-scripts/grad.td ====================================
+
+real        4.31
+user        1.99
+sys         0.76
+
+
+real        3.73
+user        2.02
+sys         0.68
+
+old-src/old-scripts/grad-test.big.td ====================================
+
+real        3.66
+user        2.82
+sys         0.53
+
+
+real        3.51
+user        2.82
+sys         0.52
+
+old-src/old-scripts/heather-image.td ====================================
+image data/heather-txt.rgb: : No such file or directory
+
+real        5.25
+user        5.15
+sys         0.44
+
+image data/heather-txt.rgb: : No such file or directory
+
+real        5.28
+user        5.27
+sys         0.44
+
+old-src/old-scripts/heather-image.td results differ
+old-src/old-scripts/image.td ====================================
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.45
+user        5.32
+sys         0.43
+
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.27
+user        5.24
+sys         0.45
+
+old-src/old-scripts/image.td results differ
+old-src/old-scripts/imageWgt.td ====================================
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.36
+user        5.35
+sys         0.45
+
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.37
+user        5.29
+sys         0.45
+
+old-src/old-scripts/imageWgt.2.td ====================================
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.37
+user        5.35
+sys         0.45
+
+image data/eat-txt.rgb: : No such file or directory
+
+real        5.27
+user        5.28
+sys         0.43
+
+old-src/old-scripts/imageWgt.2.td results differ
+old-src/old-scripts/laura-ops.td ====================================
+
+real        8.57
+user        8.13
+sys         0.75
+
+
+real        8.61
+user        8.05
+sys         0.81
+
+old-src/old-scripts/melissa-image.td ====================================
+image data/melissa-zapf.rgb: : No such file or directory
+
+real        5.19
+user        5.15
+sys         0.44
+
+image data/melissa-zapf.rgb: : No such file or directory
+
+real        5.28
+user        5.26
+sys         0.44
+
+old-src/old-scripts/melissa-image.td results differ
+old-src/old-scripts/ring.td ====================================
+
+real        5.34
+user        5.78
+sys         0.32
+
+
+real        5.23
+user        5.66
+sys         0.32
+
+old-src/old-scripts/simple.td ====================================
+
+real        4.52
+user        4.87
+sys         0.32
+
+
+real        4.56
+user        4.87
+sys         0.29
+
+old-src/old-scripts/simple.td results differ
+old-src/old-scripts/splats.td ====================================
+
+real        4.18
+user        4.46
+sys         0.30
+
+
+real        4.22
+user        4.50
+sys         0.30
+
+old-src/old-scripts/splats.td results differ
+old-src/old-scripts/laura-image.td ====================================
+image data/laura-txt.rgb: : No such file or directory
+
+real        5.19
+user        5.16
+sys         0.45
+
+image data/laura-txt.rgb: : No such file or directory
+
+real        5.46
+user        5.28
+sys         0.45
+
+old-src/old-scripts/laura-image.td results differ
+old-src/old-scripts/lineCross.td ====================================
+
+real        5.08
+user        5.46
+sys         0.33
+
+
+real        5.06
+user        5.40
+sys         0.31
+
+old-src/old-scripts/prof.td ====================================
+
+real        4.46
+user        4.80
+sys         0.31
+
+
+real        4.57
+user        4.90
+sys         0.31
+
+old-src/old-scripts/prof.td results differ
+old-src/old-scripts/x-1.td ====================================
+
+real        4.93
+user        5.29
+sys         0.30
+
+
+real        4.90
+user        5.23
+sys         0.34
+
+old-src/old-scripts/x-1.td results differ
+old-src/gallery/swirl1.td ====================================
+
+real        6.21
+user        5.35
+sys         0.64
+
+
+real        5.75
+user        5.31
+sys         0.61
+
+old-src/gallery/swirl2.td ====================================
+
+real        5.82
+user        4.89
+sys         0.62
+
+
+real        5.40
+user        4.89
+sys         0.62
+
+old-src/gallery/swirl3.td ====================================
+
+real        7.66
+user        7.18
+sys         0.85
+
+
+real        7.80
+user        7.37
+sys         0.83
+
+old-src/gallery/swirl4.td ====================================
+
+real        7.60
+user        7.24
+sys         0.84
+
+
+real        7.79
+user        7.39
+sys         0.84
+
+old-src/gallery/colin-image.td ====================================
+image data/colin-txt.rgb: : No such file or directory
+
+real        5.25
+user        5.14
+sys         0.46
+
+image data/colin-txt.rgb: : No such file or directory
+
+real        5.49
+user        5.32
+sys         0.47
+
+old-src/gallery/colin-image.td results differ
+old-src/gallery/dir-swirl.td ====================================
+
+real        8.00
+user        7.27
+sys         0.83
+
+
+real        7.71
+user        7.28
+sys         0.83
+
+old-src/gallery/dir-swirl.td results differ
+old-src/gallery/laura-swirl.td ====================================
+
+real        3.23
+user        1.83
+sys         0.90
+
+
+real        3.14
+user        1.76
+sys         0.90
+
+old-src/test-scripts/bigCone.td ====================================
+
+real        5.59
+user        6.02
+sys         0.36
+
+
+real        5.41
+user        5.85
+sys         0.34
+
+old-src/test-scripts/bigCross.td ====================================
+
+real        5.64
+user        6.11
+sys         0.35
+
+
+real        5.46
+user        5.90
+sys         0.35
+
+old-src/test-scripts/bigRing.td ====================================
+
+real        5.38
+user        5.81
+sys         0.36
+
+
+real        5.24
+user        5.64
+sys         0.34
+
+old-src/test-scripts/bigbigRing.td ====================================
+
+real        5.42
+user        5.86
+sys         0.35
+
+
+real        5.32
+user        5.73
+sys         0.35
+
+old-src/test-scripts/cone.td ====================================
+
+real        5.71
+user        6.18
+sys         0.36
+
+
+real        5.56
+user        6.04
+sys         0.34
+
+old-src/test-scripts/laura-dir-swirl.td ====================================
+
+real        3.97
+user        1.83
+sys         0.99
+
+
+real        3.01
+user        1.77
+sys         0.91
+
+old-src/test-scripts/grad.small.td ====================================
+
+real        7.65
+user        7.17
+sys         0.85
+
+
+real        7.77
+user        7.26
+sys         0.84
+
+old-src/test-scripts/XCross.td ====================================
+
+real        5.27
+user        5.68
+sys         0.34
+
+
+real        5.13
+user        5.55
+sys         0.33
+
+old-src/test-scripts/XCross.td results differ
+old-src/test-scripts/dir.td ====================================
+
+real        4.79
+user        5.13
+sys         0.32
+
+
+real        4.82
+user        5.12
+sys         0.32
+
+old-src/test-scripts/dir.td results differ
+old-src/test-scripts/edge-edge.td ====================================
+
+real        4.52
+user        4.81
+sys         0.34
+
+
+real        4.50
+user        4.79
+sys         0.33
+

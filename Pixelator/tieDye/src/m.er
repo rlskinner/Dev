@@ -1,0 +1,102 @@
+--- glEat ---
+	/usr/bin/CC            -I/usr/include/il -g   -nostdinc -I//usr/include/CC -I//usr/include -mips3 -n32 -O  -MDupdate Makedepend -o glEat glCellArray.o  glEat.o lex.o  gmr.o  weight.o contourWeight.o gradWeight.o imageWeight.o action.o nborAction.o dirAction.o ringAction.o coneAction.o crossAction.o cornerAction.o seed.o diskSeed.o edgeSeed.o lineSeed.o randomSeed.o imageSeed.o cellArray.o eat.o parse.o   -mips3 -n32 -quickstart_info -nostdlib -L//usr/lib32/mips3 -L//usr/lib32 -L//usr/lib32/internal  -lil -lm -lglut -lGLU -lGL -lXmu -lX11   
+ld32: WARNING 85: definition of __TID_11ilCacheBase in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_16iflXYZC__pt__2_i in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_17iflXYZCS__pt__2_i in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_11ilMpReqItem in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_14ilPriorityItem in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_11ilMpDepItem in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_19ilMpPolyadicRequest in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_18ilMpMonadicRequest in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_18ilMpSpatialRequest in parse.o preempts that definition in //usr/lib32/libil.so.
+ld32: WARNING 85: definition of __TID_11iflListItem in parse.o preempts that definition in //usr/lib32/libifl.so.
+ld32: INFO 31:  libm.so specified in the "libil.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libil.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libm.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libm.so specified in the "libGLU.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libGLU.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libGL.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libXmu.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libX11.so.1"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libC.so.2"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libm.so specified in the "libC.so.2"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libm.so specified in the "libifl.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libifl.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libXext.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libm.so specified in the "libGLcore.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libGLcore.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libXsgivc.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libXt.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.
+ld32: INFO 31:  libc.so.1 specified in the "libgen.so"'s liblist 
+		has a timestamp mismatch with 
+		the one specified in the link-line. -- NON-QUICKSTART
+	 Use linker option -v to see which dso is used.
+	 Use elfdump -Dl <executable> to dump the liblist information.

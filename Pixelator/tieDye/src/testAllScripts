@@ -1,0 +1,44 @@
+#!	/bin/csh
+
+set imgDir = /x/tmp/tieDye
+rm -rf $imgDir
+mkdir -p $imgDir
+
+set script = /tmp/script.td
+set files = /tmp/td.files
+find old-src -name \*.td -print > $files
+foreach f ( `cat $files` )
+    echo $f	====================================
+    set newf = `echo $f | sed -e 's=old-src/=='`
+    set ff = `echo $newf | sed -e 's=/=-='`
+    set ff = $ff:r
+
+    # modify old script
+	echo exit > $script.old
+	# echo size 64 >> $script.old
+	echo size 16 >> $script.old
+	egrep -v 'size|write' $f >> $script.old
+	# echo write	\"$imgDir/$ff.old\" >> $script.old
+    
+    # modify new script
+	echo exit > $script.new
+	# echo size 64 >> $script.new
+	echo size 16 >> $script.new
+	egrep -v 'size|write' $newf >> $script.new
+	# echo write	\"$imgDir/$ff.new\" >> $script.new
+
+    # timex glEat < $script.new  
+    # timex old-src/glEat < $script.old
+    timex txtEat < $script.new  > $imgDir/$ff.new
+    timex old-src/txtEat < $script.old > $imgDir/$ff.old
+    cmp $imgDir/$ff.old $imgDir/$ff.new > /dev/null 
+    if( $status ) then
+        echo $f results differ
+    else
+	rm $imgDir/$ff.old $imgDir/$ff.new
+    endif 
+
+    rm -f $script.new $script.old
+end
+
+rm -f $files 
